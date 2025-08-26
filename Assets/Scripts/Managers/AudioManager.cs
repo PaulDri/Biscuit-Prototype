@@ -14,6 +14,7 @@ public class AudioManager : MonoBehaviour
 
     private bool isMuted = false;
     private float lastMusicVolume = 1f;
+    private float lastSFXVolume = 1f;
 
     private void Awake()
     {
@@ -57,19 +58,36 @@ public class AudioManager : MonoBehaviour
         audioMixer.SetFloat("MusicVolume", Mathf.Log10(Mathf.Clamp(volume, 0.0001f, 1f)) * 20f);
     }
 
-    //public void SetSFXVolume(float volume)
-    //{
-    //    audioMixer.SetFloat("SFXVolume", Mathf.Log10(Mathf.Clamp(volume, 0.0001f, 1f)) * 20f);
-    //}
+    public void SetSFXVolume(float volume)
+    {
+
+        if (isMuted)
+        {
+            lastSFXVolume = volume;
+            return;
+        }
+
+        lastSFXVolume = volume;
+        audioMixer.SetFloat("SFXVolume", Mathf.Log10(Mathf.Clamp(volume, 0.0001f, 1f)) * 20f);
+    }
 
     public void ToggleMute(bool mute)
     {
         isMuted = mute;
 
-        if (mute) audioMixer.SetFloat("MusicVolume", -80f);
-        else SetMusicVolume(lastMusicVolume);
+        if (mute)
+        {
+            audioMixer.SetFloat("MusicVolume", -80f);
+            audioMixer.SetFloat("SFXVolume", -80f);
+        }
+        else
+        {
+            SetMusicVolume(lastMusicVolume);
+            SetSFXVolume(lastSFXVolume);
+        }
     }
 
     public float GetMusicVolume() => lastMusicVolume;
+    public float GetSFXVolume() => lastSFXVolume;
     public bool IsMusicMuted() => isMuted;
 }
