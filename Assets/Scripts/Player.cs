@@ -69,7 +69,7 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Biscuit")) 
         {
-            ShowScore.Instance.sc
+            //ShowScore.Instance.sc
             Destroy(collision.gameObject);
             Debug.Log("You get the biscuit");
         }
