@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class PlayerUI : MonoBehaviour
@@ -10,6 +11,7 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private TMP_Text canFireText;
     [SerializeField] private TMP_Text scoreText;
     [SerializeField] private Image fireCooldownBar;
+    [SerializeField] private GameObject pauseMenuUI;
 
     private void Update()
     {
@@ -20,6 +22,9 @@ public class PlayerUI : MonoBehaviour
         UpdateCanFireDisplay();
         UpdateScoreDisplay();
         UpdateFireCooldownBar();
+
+        // TODO: Gamitin yung bagong Input system ng Unity
+        // if (Input.GetKeyDown(KeyCode.Escape)) TogglePause();
     }
 
     private void UpdateMoveSpeedDisplay()
@@ -63,5 +68,29 @@ public class PlayerUI : MonoBehaviour
             fireCooldownBar.fillAmount = cooldownProgress;
             fireCooldownBar.color = Color.Lerp(Color.red, Color.green, cooldownProgress);
         }
+    }
+
+    public void TogglePause()
+    {
+        if (Time.timeScale == 1) Pause();
+        else Resume();
+    }
+
+     public void Pause()
+    {
+        pauseMenuUI.SetActive(true);
+        Time.timeScale = 0;
+    }
+    
+    public void Resume()
+    {
+        pauseMenuUI.SetActive(false);
+        Time.timeScale = 1;
+    }
+    
+    public void LoadMainMenu()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("MainMenu");
     }
 }
