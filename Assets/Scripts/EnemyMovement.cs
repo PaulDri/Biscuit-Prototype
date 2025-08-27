@@ -6,17 +6,27 @@ public class EnemyMovement : MonoBehaviour
 {
     private Rigidbody2D enemyRb;
     [SerializeField] private float enemyMoveSpeed = 1.0f;
-    // Start is called before the first frame update
     void Start()
     {
         enemyRb = GetComponent<Rigidbody2D>();
+    }
 
+    void OnEnable()
+    {
+        if (enemyRb == null) enemyRb = GetComponent<Rigidbody2D>();
         enemyRb.velocity = Vector2.down * enemyMoveSpeed;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        CheckScreenBounds();
+    }
+
+    // Tanggalin ung mga ship/kalaban pag lumabas sa camera
+    private void CheckScreenBounds()
+    {
+        Vector3 screenPoint = Camera.main.WorldToViewportPoint(transform.position);
+        if (screenPoint.y < -0.1f) EnemyPool.Instance.ReturnEnemy(gameObject);
     }
 }

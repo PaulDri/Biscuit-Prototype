@@ -73,7 +73,12 @@ public class Player : MonoBehaviour
                 timeBetweenFiring -= 1f;
             }
             canFire = false;
-            Instantiate(bullet, bulletTransform.position, Quaternion.identity);
+            GameObject bulletObj = BulletPool.Instance.GetBullet();
+            if (bulletObj != null)
+            {
+                bulletObj.transform.position = bulletTransform.position;
+                bulletObj.transform.rotation = Quaternion.identity;
+            }
         }
     }
 }
