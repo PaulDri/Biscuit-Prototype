@@ -10,11 +10,18 @@ public class Player : MonoBehaviour
     [SerializeField] private float moveSpeed = 9f;
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform bulletTransform;
+
+    // TODO: canFire not updating properly
     [SerializeField] private bool canFire;
     [SerializeField] private float timeBetweenFiring;
     private float timer;
-
     public float CheckScore;
+    
+    public float GetMoveSpeed() => moveSpeed;
+    public float GetTimeBetweenFiring() => timeBetweenFiring;
+    public bool CanFire() => canFire;
+    public float GetFireCooldownProgress() => canFire ? 1f : Mathf.Clamp01(timer / timeBetweenFiring);
+
     // Start is called before the first frame update
     void Start()
     {

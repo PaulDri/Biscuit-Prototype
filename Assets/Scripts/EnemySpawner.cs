@@ -34,6 +34,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemy() 
     {
+        // TODO: Tumatagilid yung ibang enemies pag nag-iispawn
         Vector2 spawnPosition = new Vector2(Random.Range(-spawnRangeX, spawnRangeX), spawnPositionY);
         EnemyPool.Instance.GetEnemy(spawnPosition);
     }
