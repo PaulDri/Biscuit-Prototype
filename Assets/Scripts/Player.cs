@@ -5,68 +5,58 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public static Player Instance;
-    
-    [SerializeField] private float moveSpeed = 7f;
-    [SerializeField] private Rigidbody2D playerRb;
-    [SerializeField] private Transform groundCheck;
-    public LayerMask groundLayer;
-    public LayerMask biscuitLayer;
     private PlayerInputAction playerInputAction;
-
-
-    //[SerializeField] private Camera mainCamera;
-    private Vector3 mousePosition;
-    private Camera mainCam;
-
-
+    private Rigidbody2D playerRb;
+    [SerializeField] private float moveSpeed = 9f;
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform bulletTransform;
     [SerializeField] private bool canFire;
-    private float timer;
     [SerializeField] private float timeBetweenFiring;
+    private float timer;
 
-
-    private void Awake()
-    {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(this);
-        }
-        else 
-        {
-            Instance = this;
-        }
-    }
-
+    public float CheckScore;
     // Start is called before the first frame update
     void Start()
     {
+        if (Instance != null) 
+        {
+            Debug.LogError("There is more than one Player Instance");
+        }
+        Instance = this;
+
         playerInputAction = new PlayerInputAction();
         playerInputAction.PlayerInput.Enable();
-
-        mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        playerRb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        
         HandleMovement();
-        //mousePosition = Input.mousePosition;
-        //mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+        Fire();
+    }
 
-        //Vector2 mouseDirection = new Vector2(mousePosition.x - transform.position.x, mousePosition.y - transform.position.y);
-        //transform.up = mouseDirection;
+    private void HandleMovement() 
+    {
+        Vector2 inputVector = GetMovementNormalized();
 
-        mousePosition = mainCam.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 moveDirection = new Vector2(inputVector.x, 0);
 
-        Vector3 rotation = mousePosition - transform.position;
+        playerRb.velocity = new Vector2(moveDirection.x * moveSpeed, 0);
+    }
 
-        float rotationZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
+    private Vector2 GetMovementNormalized() 
+    {
+        Vector2 inputVector = playerInputAction.PlayerInput.Move.ReadValue<Vector2>();
 
-        transform.rotation = Quaternion.Euler(0, 0, rotationZ);
+        inputVector = inputVector.normalized;
 
-        if (!canFire) 
+        return inputVector;
+    }
+
+    private void Fire() 
+    {
+        if (!canFire)
         {
             timer += Time.deltaTime;
             if (timer > timeBetweenFiring) 
@@ -76,36 +66,14 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonDown(0) && canFire) 
+        if (canFire) 
         {
+            if (CheckScore == 10) 
+            {
+                timeBetweenFiring -= 1f;
+            }
             canFire = false;
             Instantiate(bullet, bulletTransform.position, Quaternion.identity);
         }
-
-    }
-
-    private void HandleMovement() 
-    {
-
-        Vector2 inputVector = GetMovementVectorNormalized();
-
-        Vector2 moveDirection = new Vector2(inputVector.x, inputVector.y);
-
-        playerRb.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
-
-        //Changes the character face
-        float rotationSpeed = 10f;
-        groundCheck.right = Vector2.Lerp(groundCheck.right, moveDirection, Time.deltaTime * rotationSpeed);
-
-
-    }
-
-    private Vector2 GetMovementVectorNormalized() 
-    {
-        Vector2 inputVector = playerInputAction.PlayerInput.Move.ReadValue<Vector2>();
-
-        inputVector = inputVector.normalized;
-
-        return inputVector;
     }
 }
