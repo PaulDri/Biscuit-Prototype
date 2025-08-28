@@ -22,6 +22,12 @@ public class BulletMovement : MonoBehaviour
     private void BulletSpawn() 
     {
         bulletRb.velocity = Vector2.up * bulletSpeed;
+
+        if (Player.Instance.CheckScore == 20)
+        {
+            bulletSpeed += 0.2f;
+        }
+
     }
 
     // Tanggalin ung mga bala pag lumabas sa camera
@@ -40,5 +46,7 @@ public class BulletMovement : MonoBehaviour
             EnemyPool.Instance.ReturnEnemy(collision.gameObject);
             Player.Instance.CheckScore++;
         }
+
+
     }
 }

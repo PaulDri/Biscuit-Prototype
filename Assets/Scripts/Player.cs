@@ -37,7 +37,7 @@ public class Player : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         HandleMovement();
         Fire();
@@ -71,14 +71,12 @@ public class Player : MonoBehaviour
                 canFire = true;
                 timer = 0;
             }
+
+
         }
 
         if (canFire) 
         {
-            if (CheckScore == 10) 
-            {
-                timeBetweenFiring -= 1f;
-            }
             canFire = false;
             GameObject bulletObj = BulletPool.Instance.GetBullet();
             if (bulletObj != null)
@@ -86,6 +84,13 @@ public class Player : MonoBehaviour
                 bulletObj.transform.position = bulletTransform.position;
                 bulletObj.transform.rotation = Quaternion.identity;
             }
+
+            if (CheckScore == 10)
+            {
+                timeBetweenFiring -= 1f;
+            }
         }
+
+
     }
 }
