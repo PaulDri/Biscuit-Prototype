@@ -20,7 +20,7 @@ MonoBehaviour:
   - upgradeName: Fire Rate +
     upgradeDescription: Decrease fire cooldown by 0.1s
     upgradeType: 1
-    upgradeValue: 0.1
+    upgradeValue: 0.3
   - upgradeName: Move Speed ++
     upgradeDescription: Increase movement speed by 2
     upgradeType: 0
@@ -28,15 +28,15 @@ MonoBehaviour:
   - upgradeName: Bullet Speed +
     upgradeDescription: Increase bullet speed by 1
     upgradeType: 2
-    upgradeValue: 1
+    upgradeValue: 1.5
   - upgradeName: Bullet Speed ++
     upgradeDescription: Increase bullet speed by 2
     upgradeType: 2
-    upgradeValue: 2
+    upgradeValue: 2.5
   - upgradeName: Fire Rate ++
     upgradeDescription: Decrease fire cooldown by 0.2s
     upgradeType: 1
-    upgradeValue: 0.2
+    upgradeValue: 0.6
   - upgradeName: Invulnerability +
     upgradeDescription: Increase invulnerability by 0.1s
     upgradeType: 3
