@@ -5,12 +5,13 @@ public class UpgradeOption
     public string upgradeDescription;
     public UpgradeType upgradeType;
     public float upgradeValue;
-    
+
     public enum UpgradeType
     {
         MoveSpeed,
         FireSpeed,
         BulletSpeed,
+        Invulnerability
     }
     
     public void ApplyUpgrade()
@@ -25,6 +26,9 @@ public class UpgradeOption
                 break;
             case UpgradeType.BulletSpeed:
                 Player.Instance.IncreaseBulletSpeed(upgradeValue);
+                break;
+            case UpgradeType.Invulnerability:
+                Player.Instance.IncreaseInvulnerability(upgradeValue);
                 break;
         }
     }

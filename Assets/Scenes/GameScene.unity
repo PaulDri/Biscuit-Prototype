@@ -4734,7 +4734,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf3dfda39f26926409280f6c432179d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enableTesting: 1
+  enableTesting: 0
   testScoreIncrement: 5
   testInterval: 2
   showWaveInfo: 1

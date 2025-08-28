@@ -23,9 +23,18 @@ public class Player : MonoBehaviour
     private float survivalTime = 0f;
     private bool isGameOver = false;
 
+    // Damage flicker and invulnerability properties
+    private bool isInvulnerable = false;
+    private float invulnerabilityDuration = 1.5f;
+    private float invulnerabilityTimer = 0f;
+    private float flickerInterval = 0.1f;
+    private float flickerTimer = 0f;
+    private SpriteRenderer playerSprite;
+
     public void IncreaseMoveSpeed(float amount) => moveSpeed += amount;
     public void IncreaseFireSpeed(float amount) => timeBetweenFiring = Mathf.Max(0.1f, timeBetweenFiring - amount);
     public void IncreaseBulletSpeed(float amount) => bulletSpeed += amount;
+    public void IncreaseInvulnerability(float amount) => invulnerabilityDuration += amount;
 
     public float GetMoveSpeed() => moveSpeed;
     public float GetTimeBetweenFiring() => timeBetweenFiring;
@@ -42,16 +51,44 @@ public class Player : MonoBehaviour
         playerInputAction = new PlayerInputAction();
         playerInputAction.PlayerInput.Enable();
         playerRb = GetComponent<Rigidbody2D>();
+        playerSprite = GetComponent<SpriteRenderer>();
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         if (!isGameOver) 
         {
+            HandleInvulnerability();
+            HandleFlickerEffect();
             HandleMovement();
             Fire();
             UpdateSurvivalTimer(); 
+        }
+    }
+
+    private void HandleInvulnerability()
+    {
+        if (isInvulnerable)
+        {
+            invulnerabilityTimer -= Time.deltaTime;
+            if (invulnerabilityTimer <= 0)
+            {
+                isInvulnerable = false;
+                playerSprite.enabled = true;
+            }
+        }
+    }
+
+    private void HandleFlickerEffect()
+    {
+        if (isInvulnerable)
+        {
+            flickerTimer -= Time.deltaTime;
+            if (flickerTimer <= 0)
+            {
+                playerSprite.enabled = !playerSprite.enabled; // Toggle visibility
+                flickerTimer = flickerInterval;
+            }
         }
     }
 
@@ -97,7 +134,15 @@ public class Player : MonoBehaviour
     
     public void TakeDamage(int damage)
     {
+        if (isInvulnerable) return;
+        
         health -= damage;
+        
+        isInvulnerable = true;
+        invulnerabilityTimer = invulnerabilityDuration;
+        flickerTimer = flickerInterval;
+        playerSprite.enabled = false;
+        
         if (health <= 0) Die();
     }
 
