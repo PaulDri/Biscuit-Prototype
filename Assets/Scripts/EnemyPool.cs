@@ -36,6 +36,14 @@ public class EnemyPool : MonoBehaviour
         return enemy;
     }
 
+    public GameObject GetShootingEnemy(Vector2 position)
+    {
+        int shootingEnemyIndex = 0;
+        GameObject enemy = enemyPools[shootingEnemyIndex].Get();
+        enemy.transform.SetPositionAndRotation(position, enemyPrefabs[shootingEnemyIndex].transform.rotation);
+        return enemy;
+    }
+
     public void ReturnEnemy(GameObject enemy)
     {
         for (int i = 0; i < enemyPrefabs.Length; i++)

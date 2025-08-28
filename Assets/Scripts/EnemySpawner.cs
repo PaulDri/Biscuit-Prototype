@@ -71,29 +71,31 @@ public class EnemySpawner : MonoBehaviour
                  $"Difficulty: {waves[currentWaveIndex].difficultyMultiplier:F2}");
     }
 
-    private void GenerateNewWave()
-    {
-        // Get the last wave to base the new wave on
-        Wave lastWave = waves[waves.Count - 1];
-        
-        // Create a new wave with increased difficulty
-        Wave newWave = new Wave
+        private void GenerateNewWave()
         {
-            // TODO: Subject to change
-            scoreThreshold = Mathf.RoundToInt((lastWave.scoreThreshold + currentWaveIndex * 5) * Mathf.Pow(1.1f, currentWaveIndex)),
-            spawnInterval = Mathf.Max(lastWave.spawnInterval * 0.9f, 0.5f), // 10% faster, min 0.5s
-            spawnCooldown = Mathf.Max(lastWave.spawnCooldown * 0.9f, 1.0f), // 10% faster, min 1.0s
-            difficultyMultiplier = lastWave.difficultyMultiplier * 1.1f // 10% more difficult
-        };
-        
-        waves.Add(newWave);
-        Debug.Log($"Generated new wave {waves.Count} with increased difficulty");
-    }
+            // Get the last wave to base the new wave on
+            Wave lastWave = waves[waves.Count - 1];
+            
+            // Create a new wave with increased difficulty
+            Wave newWave = new Wave
+            {
+                scoreThreshold = Mathf.RoundToInt((lastWave.scoreThreshold + currentWaveIndex * 4) * Mathf.Pow(1.1f, currentWaveIndex)),
+                spawnInterval = Mathf.Max(lastWave.spawnInterval * 0.8f, 0.25f), // 20% faster, min 0.25s
+                spawnCooldown = Mathf.Max(lastWave.spawnCooldown * 0.8f, 0.5f), // 20% faster, min 0.5s
+                difficultyMultiplier = lastWave.difficultyMultiplier * 1.2f // 20% more difficult
+            };
+            
+            waves.Add(newWave);
+            Debug.Log($"Generated new wave {waves.Count} with increased difficulty");
+        }
 
-    private void SpawnEnemy() 
+    private void SpawnEnemy()
     {
+        bool isShootingEnemy = Random.value < 0.5f; // 50% chance
         Vector2 spawnPosition = new(Random.Range(-spawnRangeX, spawnRangeX), spawnPositionY);
-        EnemyPool.Instance.GetEnemy(spawnPosition);
+        
+        if (isShootingEnemy) EnemyPool.Instance.GetShootingEnemy(spawnPosition);
+        else EnemyPool.Instance.GetEnemy(spawnPosition);
     }
 
     public void AdvanceToNextWave()
@@ -105,4 +107,11 @@ public class EnemySpawner : MonoBehaviour
     public int GetPrevWaveScoreThreshold () => currentWaveIndex == 0 ? 0 : waves[currentWaveIndex - 1].scoreThreshold; 
     public int GetCurrentWaveScoreThreshold() => waves[currentWaveIndex].scoreThreshold;
     public int GetCurrentWaveIndex() => currentWaveIndex;
+
+    public float GetCurrentWaveDifficultyMultiplier()
+    {
+        if (waves == null || waves.Count == 0) return 1f;
+        if (currentWaveIndex >= waves.Count) return waves[waves.Count - 1].difficultyMultiplier;
+        return waves[currentWaveIndex].difficultyMultiplier;
+    }
 }

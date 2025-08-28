@@ -37,3 +37,11 @@ MonoBehaviour:
     upgradeDescription: Decrease fire cooldown by 0.2s
     upgradeType: 1
     upgradeValue: 0.2
+  - upgradeName: Invulnerability +
+    upgradeDescription: Increase invulnerability by 0.1s
+    upgradeType: 3
+    upgradeValue: 0.1
+  - upgradeName: Invulnerability ++
+    upgradeDescription: Increase invulnerability by 0.2s
+    upgradeType: 3
+    upgradeValue: 0.2

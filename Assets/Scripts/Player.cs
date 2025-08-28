@@ -127,7 +127,7 @@ public class Player : MonoBehaviour
         {
             canFire = false;
 
-            GameObject bulletObj = BulletPool.Instance.GetBullet();
+            GameObject bulletObj = BulletPool.Instance.GetPlayerBullet();
             if (bulletObj != null) bulletObj.transform.SetPositionAndRotation(bulletTransform.position, Quaternion.identity);
         }
     }
