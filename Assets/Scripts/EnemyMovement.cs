@@ -1,11 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
     private Rigidbody2D enemyRb;
     [SerializeField] private float enemyMoveSpeed = 1.0f;
+    
     void Start()
     {
         enemyRb = GetComponent<Rigidbody2D>();
@@ -17,7 +16,6 @@ public class EnemyMovement : MonoBehaviour
         enemyRb.velocity = Vector2.down * enemyMoveSpeed;
     }
 
-    // Update is called once per frame
     void Update()
     {
         CheckScreenBounds();
@@ -27,6 +25,11 @@ public class EnemyMovement : MonoBehaviour
     private void CheckScreenBounds()
     {
         Vector3 screenPoint = Camera.main.WorldToViewportPoint(transform.position);
-        if (screenPoint.y < -0.1f) EnemyPool.Instance.ReturnEnemy(gameObject);
+        if (screenPoint.y < -0.1f)  EnemyPool.Instance.ReturnEnemy(gameObject);
+    }
+    
+    public void KillEnemy()
+    {
+        EnemyPool.Instance.ReturnEnemy(gameObject);
     }
 }
