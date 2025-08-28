@@ -39,7 +39,8 @@ public class Player : MonoBehaviour
         playerRb = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    // Update is called once per frame
+    void FixedUpdate()
     {
         HandleMovement();
         Fire();
@@ -70,6 +71,8 @@ public class Player : MonoBehaviour
                 canFire = true;
                 timer = 0;
             }
+
+
         }
 
         if (canFire)
@@ -89,5 +92,7 @@ public class Player : MonoBehaviour
             LevelUpSystem.Instance.ShowLevelUpOptions();
             EnemySpawner.Instance.AdvanceToNextWave();
         }
+
+
     }
 }

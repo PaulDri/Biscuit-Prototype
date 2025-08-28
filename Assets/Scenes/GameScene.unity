@@ -417,7 +417,7 @@ Transform:
   m_GameObject: {fileID: 69519295}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.7071056, w: 0.707108}
-  m_LocalPosition: {x: -9.9, y: -0.0178, z: 0}
+  m_LocalPosition: {x: -11, y: -0.0178, z: 0}
   m_LocalScale: {x: 29.871887, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -963,8 +963,8 @@ GameObject:
   - component: {fileID: 431462073}
   - component: {fileID: 431462072}
   - component: {fileID: 431462076}
-  - component: {fileID: 431462075}
   - component: {fileID: 431462074}
+  - component: {fileID: 431462077}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1013,7 +1013,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1fe7fbec860e64f42956b742ea654a3d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1033,8 +1033,8 @@ Transform:
   m_GameObject: {fileID: 431462071}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.07, y: -13.79, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.042, y: -12.95, z: 0}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1671040842}
@@ -1067,8 +1067,26 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!70 &431462075
-CapsuleCollider2D:
+--- !u!114 &431462076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 431462071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba6a584e50a367e4fa466dcd648f2478, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 9
+  bullet: {fileID: 1969700287690558998, guid: 5ded806f312d31144a042b8df0bae2a3, type: 3}
+  bulletTransform: {fileID: 1671040842}
+  canFire: 1
+  timeBetweenFiring: 3
+  CheckScore: 0
+--- !u!60 &431462077
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1076,7 +1094,7 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 431462071}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 9c0d4175920e89d40aa81ea17a711e3c, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1100,27 +1118,32 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 2}
-  m_Direction: 0
---- !u!114 &431462076
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 431462071}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba6a584e50a367e4fa466dcd648f2478, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bullet: {fileID: 1969700287690558998, guid: 5ded806f312d31144a042b8df0bae2a3, type: 3}
-  bulletTransform: {fileID: 1671040842}
-  moveSpeed: 9
-  bulletSpeed: 5
-  canFire: 1
-  timeBetweenFiring: 3
-  CheckScore: 0
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2, y: 2}
+    newSize: {x: 1, y: 2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.63084626, y: -0.113788165}
+      - {x: -0.6290315, y: -0.62616324}
+      - {x: -0.5591573, y: -0.6241405}
+      - {x: -0.30970496, y: -0.2180393}
+      - {x: -0.24673639, y: -0.5121386}
+      - {x: 0.19435246, y: -0.5137048}
+      - {x: 0.2036357, y: -0.2248986}
+      - {x: 0.50455046, y: -0.6269481}
+      - {x: 0.5654234, y: -0.62825924}
+      - {x: 0.57532644, y: -0.12028837}
+      - {x: 0.020266667, y: 0.52379084}
+      - {x: 0.016226975, y: 0.63858974}
+      - {x: -0.074768335, y: 0.6409294}
+      - {x: -0.07606047, y: 0.514579}
+  m_UseDelaunayMesh: 0
 --- !u!1 &484379222
 GameObject:
   m_ObjectHideFlags: 0
@@ -1148,7 +1171,7 @@ Transform:
   m_GameObject: {fileID: 484379222}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.7071056, w: 0.707108}
-  m_LocalPosition: {x: 9.9, y: -0.0178, z: 0}
+  m_LocalPosition: {x: 11, y: -0.0178, z: 0}
   m_LocalScale: {x: 29.871887, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3850,7 +3873,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1762473895}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.019, y: 0.888, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

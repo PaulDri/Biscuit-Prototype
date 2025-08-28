@@ -35,5 +35,7 @@ public class BulletMovement : MonoBehaviour
             EnemyPool.Instance.ReturnEnemy(collision.gameObject);
             Player.Instance.CheckScore++;
         }
+
+
     }
 }
