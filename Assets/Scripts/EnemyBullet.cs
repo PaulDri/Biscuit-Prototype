@@ -1,8 +1,10 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class BulletMovement : MonoBehaviour
+public class EnemyBullet : MonoBehaviour
 {
     private Rigidbody2D bulletRb;
+    [SerializeField] private float bulletSpeed = 10f;
 
     void Start()
     {
@@ -17,8 +19,9 @@ public class BulletMovement : MonoBehaviour
 
     private void BulletSpawn() 
     {
-        bulletRb.velocity = Vector2.up * Player.Instance.GetBulletSpeed();
+        bulletRb.velocity = Vector2.down * bulletSpeed;
     }
+
 
     private void CheckScreenBounds()
     {
@@ -29,13 +32,10 @@ public class BulletMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Player"))
         {
-            BulletPool.Instance.ReturnBullet(gameObject);            
-            EnemyPool.Instance.ReturnEnemy(collision.gameObject);
-            Player.Instance.CheckScore++;
+            BulletPool.Instance.ReturnBullet(gameObject);
+            Player.Instance.TakeDamage(10);
         }
-
-
     }
 }

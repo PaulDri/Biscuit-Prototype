@@ -1577,10 +1577,10 @@ MonoBehaviour:
   bullet: {fileID: 1969700287690558998, guid: 5ded806f312d31144a042b8df0bae2a3, type: 3}
   bulletTransform: {fileID: 1671040842}
   health: 100
-  moveSpeed: 9
-  bulletSpeed: 5
+  moveSpeed: 10
+  bulletSpeed: 10
   canFire: 1
-  timeBetweenFiring: 3
+  timeBetweenFiring: 2.5
   CheckScore: 0
 --- !u!60 &431462077
 PolygonCollider2D:
@@ -4690,7 +4690,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waves:
-  - scoreThreshold: 25
+  - scoreThreshold: 10
     spawnInterval: 3
     spawnCooldown: 3
     difficultyMultiplier: 1
@@ -4722,7 +4722,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1ac1d1d5b60f794daf4cd7697e1c559, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 1969700287690558998, guid: 5ded806f312d31144a042b8df0bae2a3, type: 3}
+  playerBulletPrefab: {fileID: 1969700287690558998, guid: 5ded806f312d31144a042b8df0bae2a3, type: 3}
+  enemyBulletPrefab: {fileID: 1969700287690558998, guid: 2c5407bdb23ad0641a822a1d963f439c, type: 3}
 --- !u!114 &1390075051
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8840023036296387117}
   - component: {fileID: 4532655956218424932}
   - component: {fileID: 3873655803326607306}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Enemy_3
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19dbbf15706562a40be50b3851705dd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  otherCollider: {fileID: 0}
   enemyMoveSpeed: 1
 --- !u!60 &4532655956218424932
 PolygonCollider2D:

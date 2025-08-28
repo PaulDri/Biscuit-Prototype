@@ -10,12 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 8728286174486674278}
   - component: {fileID: 3883332782451360067}
-  - component: {fileID: 3685108078771818316}
+  - component: {fileID: -3612639285290165622}
   - component: {fileID: 9050586525197278231}
   - component: {fileID: 681771091468086015}
-  m_Layer: 0
-  m_Name: Bullet
-  m_TagString: Bullet
+  m_Layer: 8
+  m_Name: PlayerBullet
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -87,7 +87,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3685108078771818316
+--- !u!114 &-3612639285290165622
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,10 +96,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1969700287690558998}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb5f7ce8c0561044d8b8676906130e46, type: 3}
+  m_Script: {fileID: 11500000, guid: 08371d6fe7bbc9942aea0157fbe60bb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpeed: 5
 --- !u!50 &9050586525197278231
 Rigidbody2D:
   serializedVersion: 4

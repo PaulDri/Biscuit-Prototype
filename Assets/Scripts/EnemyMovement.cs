@@ -4,7 +4,7 @@ public class EnemyMovement : MonoBehaviour
 {
     private Rigidbody2D enemyRb;
     [SerializeField] private float enemyMoveSpeed = 1.0f;
-    
+
     void Start()
     {
         enemyRb = GetComponent<Rigidbody2D>();
@@ -13,7 +13,10 @@ public class EnemyMovement : MonoBehaviour
     void OnEnable()
     {
         if (enemyRb == null) enemyRb = GetComponent<Rigidbody2D>();
-        enemyRb.velocity = Vector2.down * enemyMoveSpeed;
+        float speedMultiplier = 1f;
+
+        if (EnemySpawner.Instance != null) speedMultiplier = EnemySpawner.Instance.GetCurrentWaveDifficultyMultiplier();
+        enemyRb.velocity = enemyMoveSpeed * speedMultiplier * Vector2.down;
     }
 
     void Update()
@@ -26,11 +29,6 @@ public class EnemyMovement : MonoBehaviour
     {
         Vector3 screenPoint = Camera.main.WorldToViewportPoint(transform.position);
         if (screenPoint.y < -0.1f)  EnemyPool.Instance.ReturnEnemy(gameObject);
-    }
-    
-    public void KillEnemy()
-    {
-        EnemyPool.Instance.ReturnEnemy(gameObject);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
