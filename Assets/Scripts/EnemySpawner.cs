@@ -35,12 +35,25 @@ public class EnemySpawner : MonoBehaviour
 
         if (spawnTime > 0) spawnTime -= Time.deltaTime;
 
-        if (spawnTime <= 0) 
+        if (spawnTime <= 0)
         {
             SpawnEnemy();
             spawnTime = waves[currentWaveIndex].spawnInterval;
         }
+        
+        CheckWaveThreshold();
     }
+    
+    
+    private void CheckWaveThreshold()
+    {
+        if ( Player.Instance.CheckScore >= GetCurrentWaveScoreThreshold())
+        {
+            LevelUpSystem.Instance.ShowLevelUpOptions();
+            AdvanceToNextWave();
+        }
+    }
+
 
     private void StartWave()
     {
@@ -52,7 +65,7 @@ public class EnemySpawner : MonoBehaviour
 
         isWaveActive = true;
         spawnTime = waves[currentWaveIndex].spawnCooldown;
-        
+
         Debug.Log($"Starting Wave {currentWaveIndex + 1} - Score Threshold: {waves[currentWaveIndex].scoreThreshold}, " +
                  $"Spawn Interval: {waves[currentWaveIndex].spawnInterval:F2}, " +
                  $"Difficulty: {waves[currentWaveIndex].difficultyMultiplier:F2}");

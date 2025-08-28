@@ -10,14 +10,18 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject bullet;
     [SerializeField] private Transform bulletTransform;
 
-
     // Player properties
+    public int health = 100; 
     [SerializeField] private float moveSpeed = 9f;
     [SerializeField] private float bulletSpeed = 5f;
     [SerializeField] private bool canFire;
     [SerializeField] private float timeBetweenFiring;
     private float timer;
     public float CheckScore;
+
+    // Timer properties tracks survival time
+    private float survivalTime = 0f;
+    private bool isGameOver = false;
 
     public void IncreaseMoveSpeed(float amount) => moveSpeed += amount;
     public void IncreaseFireSpeed(float amount) => timeBetweenFiring = Mathf.Max(0.1f, timeBetweenFiring - amount);
@@ -28,6 +32,7 @@ public class Player : MonoBehaviour
     public float GetBulletSpeed() => bulletSpeed;
     public bool CanFire() => canFire;
     public float GetFireCooldownProgress() => canFire ? 1f : Mathf.Clamp01(timer / timeBetweenFiring);
+    public float GetSurvivalTime () => survivalTime;
 
     void Start()
     {
@@ -42,9 +47,17 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        HandleMovement();
-        Fire();
-        CheckWaveThreshold();
+        if (!isGameOver) 
+        {
+            HandleMovement();
+            Fire();
+            UpdateSurvivalTimer(); 
+        }
+    }
+
+    private void UpdateSurvivalTimer()
+    {
+        survivalTime += Time.deltaTime;
     }
 
     private void HandleMovement()
@@ -71,8 +84,6 @@ public class Player : MonoBehaviour
                 canFire = true;
                 timer = 0;
             }
-
-
         }
 
         if (canFire)
@@ -81,18 +92,24 @@ public class Player : MonoBehaviour
 
             GameObject bulletObj = BulletPool.Instance.GetBullet();
             if (bulletObj != null) bulletObj.transform.SetPositionAndRotation(bulletTransform.position, Quaternion.identity);
-
         }
     }
-
-    private void CheckWaveThreshold()
+    
+    public void TakeDamage(int damage)
     {
-        if (EnemySpawner.Instance != null && CheckScore >= EnemySpawner.Instance.GetCurrentWaveScoreThreshold())
-        {
-            LevelUpSystem.Instance.ShowLevelUpOptions();
-            EnemySpawner.Instance.AdvanceToNextWave();
-        }
+        health -= damage;
+        if (health <= 0) Die();
+    }
 
+    public void Heal(int amount)
+    {
+        health += amount;
+    }
 
+    private void Die()
+    {
+        Debug.Log($"Player survived for {survivalTime:F2} seconds");
+        PlayerUI.Instance.ShowGameOverPanel(survivalTime);
+        isGameOver = true;
     }
 }

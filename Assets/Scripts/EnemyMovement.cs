@@ -32,4 +32,13 @@ public class EnemyMovement : MonoBehaviour
     {
         EnemyPool.Instance.ReturnEnemy(gameObject);
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Player.Instance.TakeDamage(10);
+            EnemyPool.Instance.ReturnEnemy(gameObject);
+        }
+    }
 }

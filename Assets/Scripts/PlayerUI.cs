@@ -14,10 +14,15 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private TMP_Text waveText;
     [SerializeField] private TMP_Text bulletSpeedText;
     [SerializeField] private Image fireCooldownBar;
-    // [SerializeField] private Image waveProgressBar;
+    [SerializeField] private TMP_Text timeText;
+    [SerializeField] private Slider healthBar;
     [SerializeField] private Slider waveProgressSlider;
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private GameObject levelUpPanel;
+    [SerializeField] private GameObject gameOverPanel;
+    [SerializeField] private TMP_Text gameOverTimeText;
+    [SerializeField] private TMP_Text gameOverScoreText;
+
 
     private int lastWaveIndex = -1;
     private float scoreAtWaveStart = 0f;
@@ -37,6 +42,8 @@ public class PlayerUI : MonoBehaviour
         UpdateBulletDisplay();
         UpdateWaveDisplay();
         UpdateWaveBar();
+        UpdateHealthBar();
+        UpdateTimeText();
 
         // TODO: Gamitin yung bagong Input system ng Unity
         // if (Input.GetKeyDown(KeyCode.Escape)) TogglePause();
@@ -98,6 +105,15 @@ public class PlayerUI : MonoBehaviour
         }
     }
 
+    private void UpdateHealthBar()
+    {
+        if (healthBar != null) healthBar.value = Player.Instance.health;
+    }
+
+    public void UpdateTimeText()
+    {
+        if (timeText != null) timeText.text = FormatTime(Player.Instance.GetSurvivalTime());
+    }
 
     public void TogglePause()
     {
@@ -117,10 +133,10 @@ public class PlayerUI : MonoBehaviour
         Time.timeScale = 1f;
     }
 
-    public void LoadMainMenu()
+    public void ChangeScene(int index)
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene(index);
     }
 
     public void LevelUpPanelOpen()
@@ -133,5 +149,24 @@ public class PlayerUI : MonoBehaviour
     {
         levelUpPanel.SetActive(false);
         Time.timeScale = 1f;
+    }
+
+    public void ShowGameOverPanel(float survivalTime)
+    {
+        gameOverPanel.SetActive(true);
+        Time.timeScale = 0f;
+
+        string formattedTime = FormatTime(survivalTime);
+
+        Debug.Log($"Game Over! Survival Time: {formattedTime} seconds");
+        gameOverTimeText.text = $"Survival Time: {formattedTime}";
+        gameOverScoreText.text = $"Score: {Player.Instance.CheckScore} points";
+    }
+
+    public string FormatTime(float time)
+    {
+        int minutes = Mathf.FloorToInt(time / 60);
+        int seconds = Mathf.FloorToInt(time % 60);
+        return string.Format("{0:00}:{1:00}", minutes, seconds);
     }
 }
