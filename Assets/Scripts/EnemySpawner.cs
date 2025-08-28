@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    public static EnemySpawner Instance; // Singleton instance
+    public static EnemySpawner Instance;
     private float spawnRangeX = 9f;
     private float spawnPositionY = 16f;
 
@@ -14,14 +14,8 @@ public class EnemySpawner : MonoBehaviour
 
     void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            Instance = this;
-        }
+        if (Instance != null && Instance != this) Destroy(gameObject);
+        else Instance = this;
     }
 
     void Start()
@@ -72,7 +66,8 @@ public class EnemySpawner : MonoBehaviour
         // Create a new wave with increased difficulty
         Wave newWave = new Wave
         {
-            scoreThreshold = Mathf.RoundToInt(lastWave.scoreThreshold * 1.2f), // 20% increase
+            // TODO: Subject to change
+            scoreThreshold = Mathf.RoundToInt((lastWave.scoreThreshold + currentWaveIndex * 5) * Mathf.Pow(1.1f, currentWaveIndex)),
             spawnInterval = Mathf.Max(lastWave.spawnInterval * 0.9f, 0.5f), // 10% faster, min 0.5s
             spawnCooldown = Mathf.Max(lastWave.spawnCooldown * 0.9f, 1.0f), // 10% faster, min 1.0s
             difficultyMultiplier = lastWave.difficultyMultiplier * 1.1f // 10% more difficult

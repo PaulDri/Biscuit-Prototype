@@ -38,7 +38,6 @@ public class EnemyPool : MonoBehaviour
 
     public void ReturnEnemy(GameObject enemy)
     {
-        // Check which enemy type this is by comparing names
         for (int i = 0; i < enemyPrefabs.Length; i++)
         {
             if (enemy.name.StartsWith(enemyPrefabs[i].name))

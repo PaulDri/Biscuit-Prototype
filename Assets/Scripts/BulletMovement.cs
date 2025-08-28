@@ -3,7 +3,6 @@ using UnityEngine;
 public class BulletMovement : MonoBehaviour
 {
     private Rigidbody2D bulletRb;
-    [SerializeField] private float bulletSpeed;
 
     void Start()
     {
@@ -18,7 +17,7 @@ public class BulletMovement : MonoBehaviour
 
     private void BulletSpawn() 
     {
-        bulletRb.velocity = Vector2.up * bulletSpeed;
+        bulletRb.velocity = Vector2.up * Player.Instance.GetBulletSpeed();
     }
 
     private void CheckScreenBounds()
