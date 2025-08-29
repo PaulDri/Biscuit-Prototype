@@ -1180,7 +1180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85d1b5f19306bf346847e87e74e6ddba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuMusic: {fileID: 0}
+  menuMusic: {fileID: 8300000, guid: c6af9f869cfe3e9418f3ff17b4aec1a0, type: 3}
   musicSlider: {fileID: 1477769661}
   sfxSlider: {fileID: 192742868}
   muteToggle: {fileID: 2061949995}
