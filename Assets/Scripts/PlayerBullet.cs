@@ -31,6 +31,8 @@ public class PlayerBullet : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            PlayerUI.Instance.EnemyDieSFX();
+
             BulletPool.Instance.ReturnBullet(gameObject);
             EnemyPool.Instance.ReturnEnemy(collision.gameObject);
 
@@ -47,7 +49,7 @@ public class PlayerBullet : MonoBehaviour
         }
         else if (collision.gameObject.layer == LayerMask.NameToLayer("EnemyBullet"))
         {
-            Debug.Log("Hit!");
+            
             BulletPool.Instance.ReturnBullet(gameObject);
             BulletPool.Instance.ReturnBullet(collision.gameObject);
         } 

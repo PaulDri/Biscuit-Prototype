@@ -1,7 +1,8 @@
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+using DG.Tweening;
 using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerUI : MonoBehaviour
 {
@@ -23,6 +24,15 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private TMP_Text gameOverTimeText;
     [SerializeField] private TMP_Text gameOverScoreText;
 
+    [Header("Audio")]
+    [SerializeField] private AudioClip gameBG;
+    [SerializeField] private AudioClip shootSFX;
+    [SerializeField] private AudioClip enemyDieSFX;
+    [SerializeField] private AudioClip damagePlayerSFX;
+    [SerializeField] private AudioClip levelUpSFX;
+    [SerializeField] private AudioClip gameOverSFX;
+
+    RectTransform levelUpRect;
 
     private int lastWaveIndex = -1;
     private float scoreAtWaveStart = 0f;
@@ -31,6 +41,14 @@ public class PlayerUI : MonoBehaviour
     {
         if (Instance != null && Instance != this) Destroy(gameObject);
         else Instance = this;
+
+        levelUpRect = levelUpPanel.GetComponent<RectTransform>();
+    }
+
+    private void Start()
+    {
+
+        AudioManager.Instance.PlayMusic(gameBG);
     }
 
     private void Update()
@@ -141,18 +159,49 @@ public class PlayerUI : MonoBehaviour
 
     public void LevelUpPanelOpen()
     {
+        LevelUpSFX();
+
+        levelUpRect.localScale = new Vector3(1f, 0f, 1f);
         levelUpPanel.SetActive(true);
+
+        Button[] buttons = levelUpPanel.GetComponentsInChildren<Button>(true);
+        foreach (Button btn in buttons) btn.interactable = false;
+
+        levelUpRect.DOScaleY(1f, 0.5f)
+            .From(0f)
+            .SetUpdate(true)
+            .SetEase(Ease.OutQuart);
+
         Time.timeScale = 0f;
+        foreach (Button btn in buttons) btn.interactable = true;
+
     }
 
     public void LevelUpPanelClose()
     {
-        levelUpPanel.SetActive(false);
+        // LevelUpCloseSFX();
+
+        Button[] buttons = levelUpPanel.GetComponentsInChildren<Button>(true);
+        foreach (Button btn in buttons) btn.interactable = false;
+
+        levelUpRect.DOScaleY(0f, 0.5f)
+            .From(1f)
+            .SetUpdate(true)
+            .SetEase(Ease.OutQuart)
+            .OnComplete(() => levelUpPanel.SetActive(false));
+
         Time.timeScale = 1f;
     }
 
     public void ShowGameOverPanel(float survivalTime)
     {
+        // TODO: Add animation
+
+        // TODO: Add SFX
+        AudioManager.Instance.StopMusic();
+        AudioManager.Instance.sfxSource.clip = gameOverSFX;
+        AudioManager.Instance.sfxSource.PlayDelayed(1f);
+
         gameOverPanel.SetActive(true);
         Time.timeScale = 0f;
 
@@ -162,6 +211,11 @@ public class PlayerUI : MonoBehaviour
         gameOverTimeText.text = $"Survival Time: {formattedTime}";
         gameOverScoreText.text = $"Score: {Player.Instance.CheckScore} points";
     }
+
+    public void PlayerShootSFX() => AudioManager.Instance.PlaySFX(shootSFX);
+    public void EnemyDieSFX() => AudioManager.Instance.PlaySFX(enemyDieSFX);
+    public void DamagePlayerSFX() => AudioManager.Instance.PlaySFX(damagePlayerSFX);
+    public void LevelUpSFX() => AudioManager.Instance.PlaySFX(levelUpSFX);
 
     public string FormatTime(float time)
     {

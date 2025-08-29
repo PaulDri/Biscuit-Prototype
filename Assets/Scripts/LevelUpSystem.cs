@@ -8,7 +8,7 @@ public class LevelUpSystem : MonoBehaviour
     [Header("UI References")]
     [SerializeField] private GameObject levelUpPanel;
     [SerializeField] private LevelUpButton[] levelUpButtons;
-    
+
     [Header("Level Up Configuration")]
     [SerializeField] private LevelUpConfig levelUpConfig;
     
@@ -19,7 +19,7 @@ public class LevelUpSystem : MonoBehaviour
         if (Instance != null && Instance != this) Destroy(gameObject);
         else Instance = this;
     }
-    
+
     public void ShowLevelUpOptions()
     {
         currentOptions.Clear();

@@ -28,10 +28,10 @@ public class AudioManager : MonoBehaviour
         musicSource.Play();
     }
 
-    //public void StopMusic()
-    //{
-    //    musicSource.Stop();
-    //}
+    public void StopMusic()
+    {
+        musicSource.Stop();
+    }
 
     public void PlaySFX(AudioClip clip)
     {

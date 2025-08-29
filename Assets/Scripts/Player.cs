@@ -129,13 +129,15 @@ public class Player : MonoBehaviour
 
             GameObject bulletObj = BulletPool.Instance.GetPlayerBullet();
             if (bulletObj != null) bulletObj.transform.SetPositionAndRotation(bulletTransform.position, Quaternion.identity);
+            PlayerUI.Instance.PlayerShootSFX();
         }
     }
     
     public void TakeDamage(int damage)
     {
         if (isInvulnerable) return;
-        
+
+        PlayerUI.Instance.DamagePlayerSFX();
         health -= damage;
         
         isInvulnerable = true;
