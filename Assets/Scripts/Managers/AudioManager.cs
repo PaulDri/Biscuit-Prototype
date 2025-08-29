@@ -16,17 +16,10 @@ public class AudioManager : MonoBehaviour
     private float lastMusicVolume = 1f;
     private float lastSFXVolume = 1f;
 
-    private void Awake()
+    void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        if (Instance != null && Instance != this) Destroy(gameObject);
+        else Instance = this;
     }
 
     public void PlayMusic(AudioClip clip)
