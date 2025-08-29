@@ -1180,7 +1180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85d1b5f19306bf346847e87e74e6ddba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuMusic: {fileID: 8300000, guid: 9528547f76d539949a7e15f4b60bfb21, type: 3}
+  menuMusic: {fileID: 0}
   musicSlider: {fileID: 1477769661}
   sfxSlider: {fileID: 192742868}
   muteToggle: {fileID: 2061949995}
@@ -1734,7 +1734,7 @@ PrefabInstance:
     - target: {fileID: 77236443914867777, guid: 80d2f6e743ed542458dd025e5a1bf537, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 8300000, guid: 8b925794251b39640925153dbe36ecd4, type: 3}
+      objectReference: {fileID: 8300000, guid: a574dd4eca5e10145ae3355d5d1a9ba5, type: 3}
     - target: {fileID: 77236443914867777, guid: 80d2f6e743ed542458dd025e5a1bf537, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgument
       value: 
@@ -2198,7 +2198,7 @@ PrefabInstance:
     - target: {fileID: 77236443914867777, guid: 80d2f6e743ed542458dd025e5a1bf537, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
       value: 
-      objectReference: {fileID: 8300000, guid: 8b925794251b39640925153dbe36ecd4, type: 3}
+      objectReference: {fileID: 8300000, guid: a574dd4eca5e10145ae3355d5d1a9ba5, type: 3}
     - target: {fileID: 77236443914867777, guid: 80d2f6e743ed542458dd025e5a1bf537, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.AudioClip, UnityEngine
@@ -2401,7 +2401,7 @@ MonoBehaviour:
         m_MethodName: PlaySFX
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: 8b925794251b39640925153dbe36ecd4, type: 3}
+          m_ObjectArgument: {fileID: 8300000, guid: a574dd4eca5e10145ae3355d5d1a9ba5, type: 3}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0

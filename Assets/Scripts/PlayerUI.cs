@@ -23,6 +23,9 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private GameObject gameOverPanel;
     [SerializeField] private TMP_Text gameOverTimeText;
     [SerializeField] private TMP_Text gameOverScoreText;
+    [SerializeField] private RectTransform howToRect;
+    [SerializeField] private SpriteRenderer background;
+    [SerializeField] private CanvasGroup gameHUD;
 
     [Header("Audio")]
     [SerializeField] private AudioClip gameBG;
@@ -30,6 +33,7 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private AudioClip enemyDieSFX;
     [SerializeField] private AudioClip damagePlayerSFX;
     [SerializeField] private AudioClip levelUpSFX;
+    [SerializeField] private AudioClip levelUpCloseSFX;
     [SerializeField] private AudioClip gameOverSFX;
 
     RectTransform levelUpRect;
@@ -47,8 +51,25 @@ public class PlayerUI : MonoBehaviour
 
     private void Start()
     {
+        EnemySpawner.Instance.gameObject.SetActive(false);
 
-        AudioManager.Instance.PlayMusic(gameBG);
+        if (gameHUD != null)
+        {
+            gameHUD.gameObject.SetActive(false);
+            gameHUD.alpha = 0f;
+        }
+
+        if (gameBG != null)
+        {
+            background.gameObject.SetActive(false);
+            Color color = background.color;
+            color.a = 0f;
+        }
+
+        // Disable shooting
+        Player.Instance.DisableShooting();
+
+        //Time.timeScale = 0f;
     }
 
     private void Update()
@@ -79,7 +100,7 @@ public class PlayerUI : MonoBehaviour
 
     private void UpdateScoreDisplay()
     {
-        if (scoreText != null) scoreText.text = $"Score: {Player.Instance.CheckScore}";
+        if (scoreText != null) scoreText.text = $"{Player.Instance.CheckScore}";
     }
 
     private void UpdateBulletDisplay()
@@ -157,9 +178,32 @@ public class PlayerUI : MonoBehaviour
         SceneManager.LoadScene(index);
     }
 
+    public void CloseHowToPanel()
+    {
+        AudioManager.Instance.PlaySFX(levelUpCloseSFX);
+
+        // Turn on enemy spawning
+        EnemySpawner.Instance.gameObject.SetActive(true);
+
+        ShowGameUI();
+        AudioManager.Instance.PlayMusic(gameBG);
+
+        // Enable player shooting
+        Player.Instance.EnableShooting();
+        Player.Instance.recordTime = true;
+
+        Time.timeScale = 1f;
+
+        howToRect.DOScaleY(0f, 0.5f)
+        .From(1f)
+        .SetUpdate(true)
+        .SetEase(Ease.OutQuart)
+        .OnComplete(() => howToRect.gameObject.SetActive(false));
+    }
+
     public void LevelUpPanelOpen()
     {
-        LevelUpSFX();
+        AudioManager.Instance.PlaySFX(levelUpSFX);
 
         levelUpRect.localScale = new Vector3(1f, 0f, 1f);
         levelUpPanel.SetActive(true);
@@ -177,9 +221,20 @@ public class PlayerUI : MonoBehaviour
 
     }
 
+    public void ShowGameUI()
+    {
+        Sequence uiSequence = DOTween.Sequence().SetUpdate(true);
+        
+        gameHUD.gameObject.SetActive(true);
+        uiSequence.Join(gameHUD.DOFade(1f, 5f).SetEase(Ease.OutQuart));
+        
+        background.gameObject.SetActive(true);
+        uiSequence.Join(background.DOFade(1f, 2f).SetEase(Ease.OutQuart));
+    }
+
     public void LevelUpPanelClose()
     {
-        // LevelUpCloseSFX();
+        AudioManager.Instance.PlaySFX(levelUpCloseSFX);
 
         Button[] buttons = levelUpPanel.GetComponentsInChildren<Button>(true);
         foreach (Button btn in buttons) btn.interactable = false;
@@ -195,9 +250,6 @@ public class PlayerUI : MonoBehaviour
 
     public void ShowGameOverPanel(float survivalTime)
     {
-        // TODO: Add animation
-
-        // TODO: Add SFX
         AudioManager.Instance.StopMusic();
         AudioManager.Instance.sfxSource.clip = gameOverSFX;
         AudioManager.Instance.sfxSource.PlayDelayed(1f);
@@ -215,7 +267,6 @@ public class PlayerUI : MonoBehaviour
     public void PlayerShootSFX() => AudioManager.Instance.PlaySFX(shootSFX);
     public void EnemyDieSFX() => AudioManager.Instance.PlaySFX(enemyDieSFX);
     public void DamagePlayerSFX() => AudioManager.Instance.PlaySFX(damagePlayerSFX);
-    public void LevelUpSFX() => AudioManager.Instance.PlaySFX(levelUpSFX);
 
     public string FormatTime(float time)
     {

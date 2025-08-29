@@ -22,7 +22,7 @@ public class PlayButton : MonoBehaviour
     {
         playButton.interactable = false;
 
-        Sequence seq = DOTween.Sequence();
+        Sequence seq = DOTween.Sequence().SetUpdate(true);
 
         seq.Append(
             buttonCanvas.DOFade(0f, 0.1f)

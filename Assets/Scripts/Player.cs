@@ -14,13 +14,16 @@ public class Player : MonoBehaviour
     public int health = 100; 
     [SerializeField] private float moveSpeed = 9f;
     [SerializeField] private float bulletSpeed = 5f;
-    [SerializeField] private bool canFire;
     [SerializeField] private float timeBetweenFiring;
-    private float timer;
+    [SerializeField] private bool canShoot = true;
     public float CheckScore;
+
+    private bool canFire = true;
+    private float timer;
 
     // Timer properties tracks survival time
     private float survivalTime = 0f;
+    public bool recordTime = false;
     private bool isGameOver = false;
 
     // Damage flicker and invulnerability properties
@@ -39,7 +42,7 @@ public class Player : MonoBehaviour
     public float GetMoveSpeed() => moveSpeed;
     public float GetTimeBetweenFiring() => timeBetweenFiring;
     public float GetBulletSpeed() => bulletSpeed;
-    public bool CanFire() => canFire;
+    //public bool CanFire() => canFire;
     public float GetFireCooldownProgress() => canFire ? 1f : Mathf.Clamp01(timer / timeBetweenFiring);
     public float GetSurvivalTime () => survivalTime;
 
@@ -56,13 +59,16 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (recordTime) UpdateSurvivalTimer();
+
         if (!isGameOver) 
         {
             HandleInvulnerability();
             HandleFlickerEffect();
             HandleMovement();
+
+            if (!canShoot) return;
             Fire();
-            UpdateSurvivalTimer(); 
         }
     }
 
@@ -123,12 +129,15 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (canFire)
+        if (canFire && canShoot)
         {
             canFire = false;
 
             GameObject bulletObj = BulletPool.Instance.GetPlayerBullet();
-            if (bulletObj != null) bulletObj.transform.SetPositionAndRotation(bulletTransform.position, Quaternion.identity);
+
+            if (bulletObj != null) 
+                bulletObj.transform.SetPositionAndRotation(bulletTransform.position, Quaternion.identity);
+
             PlayerUI.Instance.PlayerShootSFX();
         }
     }
@@ -159,4 +168,42 @@ public class Player : MonoBehaviour
         PlayerUI.Instance.ShowGameOverPanel(survivalTime);
         isGameOver = true;
     }
+
+    public void EnableShooting()
+    {
+        canShoot = true;
+        Debug.Log("Player shooting enabled");
+    }
+
+    public void DisableShooting()
+    {
+        canShoot = false;
+        Debug.Log("Player shooting disabled");
+    }
+
+    public void ToggleShooting()
+    {
+        canShoot = !canShoot;
+        Debug.Log($"Player shooting {(canShoot ? "enabled" : "disabled")}");
+    }
+
+    //public void DisableShootingTemporarily(float duration)
+    //{
+    //    if (gameObject.activeInHierarchy)
+    //    {
+    //        StartCoroutine(DisableShootingCoroutine(duration));
+    //    }
+    //}
+
+    //private System.Collections.IEnumerator DisableShootingCoroutine(float duration)
+    //{
+    //    bool wasEnabled = canShoot;
+    //    canShoot = false;
+    //    Debug.Log($"Player shooting disabled for {duration} seconds");
+
+    //    yield return new WaitForSeconds(duration);
+
+    //    canShoot = wasEnabled; // Restore previous state
+    //    Debug.Log("Player shooting re-enabled");
+    //}
 }
