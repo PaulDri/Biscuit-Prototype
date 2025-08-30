@@ -4689,7 +4689,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -18.505676, y: -175.01001}
+  m_AnchoredPosition: {x: -18.505615, y: -175.01001}
   m_SizeDelta: {x: -37.0115, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1253165523
@@ -5488,7 +5488,7 @@ MonoBehaviour:
   howToRect: {fileID: 15734838}
   background: {fileID: 1422938149}
   gameHUD: {fileID: 619225629}
-  gameBG: {fileID: 8300000, guid: a8e1254ca52ab3f4485c31b9d5f47e7c, type: 3}
+  gameBG: {fileID: 8300000, guid: 139b7ca98bbdc8b4e8205659cca25f38, type: 3}
   shootSFX: {fileID: 8300000, guid: 8b925794251b39640925153dbe36ecd4, type: 3}
   enemyDieSFX: {fileID: 8300000, guid: e8e064cd482ebaf4faf93ba496edf20f, type: 3}
   damagePlayerSFX: {fileID: 8300000, guid: c523d5ac434c16d488d372f5841a87ae, type: 3}
