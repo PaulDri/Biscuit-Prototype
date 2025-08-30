@@ -1673,6 +1673,101 @@ PolygonCollider2D:
       - {x: -0.074768335, y: 0.6409294}
       - {x: -0.07606047, y: 0.514579}
   m_UseDelaunayMesh: 0
+--- !u!1 &446812865
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 446812870}
+  - component: {fileID: 446812869}
+  - component: {fileID: 446812868}
+  - component: {fileID: 446812867}
+  - component: {fileID: 446812866}
+  m_Layer: 0
+  m_Name: PoolManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &446812866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 446812865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c440e92d7246b8440b9419c2319530c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthPickupPrefab: {fileID: 6887020743263415354, guid: 29762a70fa23d004faa99781575d0688, type: 3}
+  poolSize: 10
+  maxPoolSize: 20
+--- !u!114 &446812867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 446812865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a64cd0df02164149b5effdbe5cd934b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionPrefab: {fileID: 7876194876201077053, guid: 7b69123f17d890544b31b13a4cc945d9, type: 3}
+  poolSize: 10
+  maxPoolSize: 20
+--- !u!114 &446812868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 446812865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1ac1d1d5b60f794daf4cd7697e1c559, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerBulletPrefab: {fileID: 1969700287690558998, guid: 5ded806f312d31144a042b8df0bae2a3, type: 3}
+  enemyBulletPrefab: {fileID: 1969700287690558998, guid: 2c5407bdb23ad0641a822a1d963f439c, type: 3}
+--- !u!114 &446812869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 446812865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33546f9e1a89c9e43960da6d589905b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyPrefabs:
+  - {fileID: 1364130688312155922, guid: 36f5378d0b986844a92e5ac6a0c245b0, type: 3}
+  - {fileID: 4795817251488102922, guid: 557269f7de95db345b123baeb181351f, type: 3}
+  - {fileID: 4795817251488102922, guid: 77661ec0c411f3341adf0eda7b6ef60d, type: 3}
+--- !u!4 &446812870
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 446812865}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &467290906
 GameObject:
   m_ObjectHideFlags: 0
@@ -5243,9 +5338,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1390075047}
   - component: {fileID: 1390075048}
-  - component: {fileID: 1390075049}
-  - component: {fileID: 1390075050}
-  - component: {fileID: 1390075052}
   - component: {fileID: 1390075051}
   m_Layer: 0
   m_Name: SpawnManager
@@ -5283,8 +5375,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waves:
   - scoreThreshold: 10
-    spawnInterval: 3
-    spawnCooldown: 3
+    spawnInterval: 4
+    spawnCooldown: 4
     difficultyMultiplier: 1
     shootingEnemySpawnRate: 0.1
   lastWaveIndex: -1
@@ -5297,36 +5389,6 @@ MonoBehaviour:
   maxShootingEnemySpawnRate: 0.5
   minSpawnInterval: 0.25
   minSpawnCooldown: 0.5
---- !u!114 &1390075049
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1390075046}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33546f9e1a89c9e43960da6d589905b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyPrefabs:
-  - {fileID: 1364130688312155922, guid: 36f5378d0b986844a92e5ac6a0c245b0, type: 3}
-  - {fileID: 4795817251488102922, guid: 557269f7de95db345b123baeb181351f, type: 3}
-  - {fileID: 4795817251488102922, guid: 77661ec0c411f3341adf0eda7b6ef60d, type: 3}
---- !u!114 &1390075050
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1390075046}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1ac1d1d5b60f794daf4cd7697e1c559, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerBulletPrefab: {fileID: 1969700287690558998, guid: 5ded806f312d31144a042b8df0bae2a3, type: 3}
-  enemyBulletPrefab: {fileID: 1969700287690558998, guid: 2c5407bdb23ad0641a822a1d963f439c, type: 3}
 --- !u!114 &1390075051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5343,21 +5405,6 @@ MonoBehaviour:
   testScoreIncrement: 5
   testInterval: 2
   showWaveInfo: 1
---- !u!114 &1390075052
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1390075046}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a64cd0df02164149b5effdbe5cd934b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  explosionPrefab: {fileID: 7876194876201077053, guid: 7b69123f17d890544b31b13a4cc945d9, type: 3}
-  poolSize: 10
-  maxPoolSize: 20
 --- !u!1 &1422938148
 GameObject:
   m_ObjectHideFlags: 0
@@ -7281,6 +7328,7 @@ SceneRoots:
   - {fileID: 2067598472}
   - {fileID: 431462073}
   - {fileID: 1390075047}
+  - {fileID: 446812870}
   - {fileID: 1153005243}
   - {fileID: 1446581577}
   - {fileID: 6990540967259728060}

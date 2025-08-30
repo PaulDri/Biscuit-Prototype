@@ -161,7 +161,9 @@ public class Player : MonoBehaviour
 
     public void Heal(int amount)
     {
-        health += amount;
+        health = Mathf.Min(health + amount, 100); // Cap at 100 health
+        // UI health bar update can be added later if needed
+        Debug.Log($"Player healed for {amount} health. Current health: {health}");
     }
 
     private void Die()

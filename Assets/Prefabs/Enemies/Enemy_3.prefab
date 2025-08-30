@@ -196,6 +196,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 3
   currentHealth: 7
+  dropChance: 0.4
   healthBarImage: {fileID: 5884871870327548288}
   isShootingEnemy: 0
 --- !u!60 &4532655956218424932

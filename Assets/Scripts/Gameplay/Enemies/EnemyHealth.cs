@@ -5,6 +5,7 @@ public class EnemyHealth : MonoBehaviour
 {
     [SerializeField] private int maxHealth = 10;
     [SerializeField] private int currentHealth;
+    [SerializeField] private float dropChance = 0.25f;
     
     // Health bar UI
     [SerializeField] private Image healthBarImage;
@@ -54,13 +55,13 @@ public class EnemyHealth : MonoBehaviour
     {
         // Play explosion effect
         ExplosionPool.Instance.PlayExplosion(transform.position, transform.rotation);
-        
+
         // Play death sound
         PlayerUI.Instance.EnemyDieSFX();
-        
+
         // Award score based on enemy type and wave difficulty
         int scoreIncrement = isShootingEnemy ? 2 : 1;
-        
+
         if (EnemySpawner.Instance != null)
         {
             float multiplier = EnemySpawner.Instance.GetCurrentWaveDifficultyMultiplier();
@@ -68,24 +69,35 @@ public class EnemyHealth : MonoBehaviour
             float exponentialFactor = Mathf.Pow(1.05f, waveIndex);
             scoreIncrement = Mathf.RoundToInt(scoreIncrement * multiplier * exponentialFactor);
         }
-        
+
         Player.Instance.CheckScore += scoreIncrement;
-        
+
+        // Drop health pickup with chance
+        if (Random.value < dropChance)
+        {
+            GameObject healthPickup = HealthPickupPool.Instance.GetHealthPickup();
+            if (healthPickup != null)
+            {
+                healthPickup.transform.position = transform.position;
+                healthPickup.SetActive(true);
+            }
+        }
+
         // Return enemy to pool
         EnemyPool.Instance.ReturnEnemy(gameObject);
     }
     
-    // Optional: Getter for current health (useful for UI or debugging)
-    public int GetCurrentHealth()
-    {
-        return currentHealth;
-    }
+    // Optional: Getter for current health
+    // public int GetCurrentHealth()
+    // {
+    //     return currentHealth;
+    // }
     
     // Optional: Getter for max health
-    public int GetMaxHealth()
-    {
-        return maxHealth;
-    }
+    // public int GetMaxHealth()
+    // {
+    //     return maxHealth;
+    // }
     
     // Optional: Method to set enemy type (shooting vs regular)
     // public void SetEnemyType(bool shootingEnemy)
@@ -106,7 +118,7 @@ public class EnemyHealth : MonoBehaviour
             float healthPercentage = (float)currentHealth / maxHealth;
             healthBarImage.fillAmount = healthPercentage;
             
-            // Optional: Change color based on health
+            // Change color based on health
             if (healthPercentage > 0.6f)
                 healthBarImage.color = Color.green;
             else if (healthPercentage > 0.3f)
