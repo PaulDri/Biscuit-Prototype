@@ -5,6 +5,7 @@ public class EnemyBullet : MonoBehaviour
 {
     private Rigidbody2D bulletRb;
     [SerializeField] private float bulletSpeed = 10f;
+    //[SerializeField] private GameObject explosionPrefab;
 
     void Start()
     {
@@ -34,8 +35,22 @@ public class EnemyBullet : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            ExplosionPool.Instance.PlayExplosion(transform.position, transform.rotation);
             BulletPool.Instance.ReturnBullet(gameObject);
             Player.Instance.TakeDamage(10);
         }
     }
+
+    //public void PlayExplosion()
+    //{
+
+    //    if (explosionPrefab != null)
+    //    {
+    //        GameObject explosion = Instantiate(explosionPrefab, transform.position, transform.rotation);
+    //        Destroy(explosion, 1f);
+    //    }
+
+    //    PlayerUI.Instance.EnemyDieSFX();
+    //}
+
 }
