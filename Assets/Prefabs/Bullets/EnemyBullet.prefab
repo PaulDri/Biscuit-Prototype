@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletSpeed: 10
+  explosionPrefab: {fileID: 7876194876201077053, guid: 7b69123f17d890544b31b13a4cc945d9, type: 3}
 --- !u!50 &9050586525197278231
 Rigidbody2D:
   serializedVersion: 4

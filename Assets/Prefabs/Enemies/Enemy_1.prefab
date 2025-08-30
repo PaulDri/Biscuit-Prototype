@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 2763617785516470829}
   - component: {fileID: 6278199423696752015}
   - component: {fileID: 8035960509811357064}
-  - component: {fileID: 4069119406876093449}
   m_Layer: 10
   m_Name: Enemy_1
   m_TagString: Enemy
@@ -100,6 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19dbbf15706562a40be50b3851705dd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosionPrefab: {fileID: 7876194876201077053, guid: 7b69123f17d890544b31b13a4cc945d9, type: 3}
   enemyMoveSpeed: 1
 --- !u!50 &6278199423696752015
 Rigidbody2D:
@@ -163,24 +163,3 @@ CircleCollider2D:
   m_Offset: {x: 0.0025117397, y: 0.07033253}
   serializedVersion: 2
   m_Radius: 0.6006098
---- !u!95 &4069119406876093449
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1364130688312155922}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 842201cd64baf4c42954755df3232264, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0

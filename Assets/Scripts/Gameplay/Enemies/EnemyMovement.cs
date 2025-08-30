@@ -3,6 +3,7 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     private Rigidbody2D enemyRb;
+    //[SerializeField] private GameObject explosionPrefab;
     [SerializeField] private float enemyMoveSpeed = 1.0f;
 
     void Start()
@@ -35,8 +36,21 @@ public class EnemyMovement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            ExplosionPool.Instance.PlayExplosion(transform.position, transform.rotation);
             Player.Instance.TakeDamage(10);
             EnemyPool.Instance.ReturnEnemy(gameObject);
         }
     }
+
+    //public void PlayExplosion()
+    //{
+
+    //    if (explosionPrefab != null)
+    //    {
+    //        GameObject explosion = Instantiate(explosionPrefab, transform.position, transform.rotation);
+    //        Destroy(explosion, 1f);
+    //    }
+
+    //    PlayerUI.Instance.EnemyDieSFX();
+    //}
 }
