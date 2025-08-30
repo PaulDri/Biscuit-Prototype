@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
     public int health = 100; 
     [SerializeField] private float moveSpeed = 9f;
     [SerializeField] private float bulletSpeed = 5f;
+    [SerializeField] private int bulletDamage = 1;
     [SerializeField] private float timeBetweenFiring;
     [SerializeField] private bool canShoot = true;
     public float CheckScore;
@@ -37,12 +38,13 @@ public class Player : MonoBehaviour
     public void IncreaseMoveSpeed(float amount) => moveSpeed += amount;
     public void IncreaseFireSpeed(float amount) => timeBetweenFiring = Mathf.Max(0.1f, timeBetweenFiring - amount);
     public void IncreaseBulletSpeed(float amount) => bulletSpeed += amount;
+    public void IncreaseBulletDamage(int amount) => bulletDamage += amount;
     public void IncreaseInvulnerability(float amount) => invulnerabilityDuration += amount;
 
     public float GetMoveSpeed() => moveSpeed;
     public float GetTimeBetweenFiring() => timeBetweenFiring;
     public float GetBulletSpeed() => bulletSpeed;
-    //public bool CanFire() => canFire;
+    public int GetBulletDamage() => bulletDamage;
     public float GetFireCooldownProgress() => canFire ? 1f : Mathf.Clamp01(timer / timeBetweenFiring);
     public float GetSurvivalTime () => survivalTime;
 
@@ -186,24 +188,4 @@ public class Player : MonoBehaviour
         canShoot = !canShoot;
         Debug.Log($"Player shooting {(canShoot ? "enabled" : "disabled")}");
     }
-
-    //public void DisableShootingTemporarily(float duration)
-    //{
-    //    if (gameObject.activeInHierarchy)
-    //    {
-    //        StartCoroutine(DisableShootingCoroutine(duration));
-    //    }
-    //}
-
-    //private System.Collections.IEnumerator DisableShootingCoroutine(float duration)
-    //{
-    //    bool wasEnabled = canShoot;
-    //    canShoot = false;
-    //    Debug.Log($"Player shooting disabled for {duration} seconds");
-
-    //    yield return new WaitForSeconds(duration);
-
-    //    canShoot = wasEnabled; // Restore previous state
-    //    Debug.Log("Player shooting re-enabled");
-    //}
 }

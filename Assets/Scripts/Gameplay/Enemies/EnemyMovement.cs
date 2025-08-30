@@ -3,7 +3,6 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     private Rigidbody2D enemyRb;
-    //[SerializeField] private GameObject explosionPrefab;
     [SerializeField] private float enemyMoveSpeed = 1.0f;
 
     void Start()
@@ -25,7 +24,6 @@ public class EnemyMovement : MonoBehaviour
         CheckScreenBounds();
     }
 
-    // Tanggalin ung mga ship/kalaban pag lumabas sa camera
     private void CheckScreenBounds()
     {
         Vector3 screenPoint = Camera.main.WorldToViewportPoint(transform.position);
@@ -38,19 +36,8 @@ public class EnemyMovement : MonoBehaviour
         {
             ExplosionPool.Instance.PlayExplosion(transform.position, transform.rotation);
             Player.Instance.TakeDamage(10);
+            // Enemy is destroyed on collision with player (no health system for player collision)
             EnemyPool.Instance.ReturnEnemy(gameObject);
         }
     }
-
-    //public void PlayExplosion()
-    //{
-
-    //    if (explosionPrefab != null)
-    //    {
-    //        GameObject explosion = Instantiate(explosionPrefab, transform.position, transform.rotation);
-    //        Destroy(explosion, 1f);
-    //    }
-
-    //    PlayerUI.Instance.EnemyDieSFX();
-    //}
 }

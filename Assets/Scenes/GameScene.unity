@@ -1282,18 +1282,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 52167247290278829}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: PlaySFX
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: ac03088ce9a5cf94cadfd69943048abc, type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1446581576}
         m_TargetAssemblyTypeName: PlayerUI, Assembly-CSharp
         m_MethodName: ChangeScene
@@ -1621,6 +1609,7 @@ MonoBehaviour:
   health: 100
   moveSpeed: 10
   bulletSpeed: 10
+  bulletDamage: 1
   timeBetweenFiring: 2.5
   canShoot: 1
   CheckScore: 0
@@ -5297,6 +5286,17 @@ MonoBehaviour:
     spawnInterval: 3
     spawnCooldown: 3
     difficultyMultiplier: 1
+    shootingEnemySpawnRate: 0.1
+  lastWaveIndex: -1
+  scoreThresholdBaseMultiplier: 1.1
+  scoreThresholdLinearGrowth: 4
+  spawnIntervalMultiplier: 0.95
+  spawnCooldownMultiplier: 0.95
+  difficultyMultiplier: 1.2
+  shootingEnemySpawnRateIncrease: 0.05
+  maxShootingEnemySpawnRate: 0.5
+  minSpawnInterval: 0.25
+  minSpawnCooldown: 0.5
 --- !u!114 &1390075049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5665,18 +5665,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 52167247290278829}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
-        m_MethodName: PlaySFX
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: ac03088ce9a5cf94cadfd69943048abc, type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1446581576}
         m_TargetAssemblyTypeName: PlayerUI, Assembly-CSharp
         m_MethodName: ChangeScene

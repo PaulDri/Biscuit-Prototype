@@ -11,6 +11,7 @@ public class UpgradeOption
         MoveSpeed,
         FireSpeed,
         BulletSpeed,
+        BulletDamage,
         Invulnerability
     }
     
@@ -26,6 +27,9 @@ public class UpgradeOption
                 break;
             case UpgradeType.BulletSpeed:
                 Player.Instance.IncreaseBulletSpeed(upgradeValue);
+                break;
+            case UpgradeType.BulletDamage:
+                Player.Instance.IncreaseBulletDamage((int)upgradeValue);
                 break;
             case UpgradeType.Invulnerability:
                 Player.Instance.IncreaseInvulnerability(upgradeValue);

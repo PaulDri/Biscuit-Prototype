@@ -45,3 +45,11 @@ MonoBehaviour:
     upgradeDescription: Increase invulnerability by 0.2s
     upgradeType: 3
     upgradeValue: 0.2
+  - upgradeName: Damage ++
+    upgradeDescription: Increase damage by 2
+    upgradeType: 3
+    upgradeValue: 2
+  - upgradeName: Damage +
+    upgradeDescription: Increase damage by 1
+    upgradeType: 3
+    upgradeValue: 1

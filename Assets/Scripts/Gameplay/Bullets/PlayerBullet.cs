@@ -27,24 +27,34 @@ public class PlayerBullet : MonoBehaviour
             BulletPool.Instance.ReturnBullet(gameObject);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            ExplosionPool.Instance.PlayExplosion(transform.position, transform.rotation);
             BulletPool.Instance.ReturnBullet(gameObject);
-            EnemyPool.Instance.ReturnEnemy(collision.gameObject);
-
-            int scoreIncrement = 1;
-            if (EnemySpawner.Instance != null)
+            
+            // Deal damage to enemy instead of immediately destroying it
+            EnemyHealth enemyHealth = collision.gameObject.GetComponent<EnemyHealth>();
+            if (enemyHealth != null)
             {
-                float multiplier = EnemySpawner.Instance.GetCurrentWaveDifficultyMultiplier();
-                int waveIndex = EnemySpawner.Instance.GetCurrentWaveIndex();
-                float exponentialFactor = Mathf.Pow(1.05f, waveIndex);
-                scoreIncrement = Mathf.RoundToInt(multiplier * exponentialFactor);
+                enemyHealth.TakeDamage(Player.Instance.GetBulletDamage()); // Use player's bullet damage
             }
+            else
+            {
+                // Fallback: if enemy doesn't have health component, destroy it immediately
+                EnemyPool.Instance.ReturnEnemy(collision.gameObject);
+                
+                int scoreIncrement = 1;
+                if (EnemySpawner.Instance != null)
+                {
+                    float multiplier = EnemySpawner.Instance.GetCurrentWaveDifficultyMultiplier();
+                    int waveIndex = EnemySpawner.Instance.GetCurrentWaveIndex();
+                    float exponentialFactor = Mathf.Pow(1.05f, waveIndex);
+                    scoreIncrement = Mathf.RoundToInt(multiplier * exponentialFactor);
+                }
 
-            Player.Instance.CheckScore += scoreIncrement;
+                Player.Instance.CheckScore += scoreIncrement;
+            }
         }
         else if (collision.gameObject.layer == LayerMask.NameToLayer("EnemyBullet"))
         {
