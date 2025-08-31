@@ -67,7 +67,7 @@ public class HealthPickup : MonoBehaviour
         Player.Instance.Heal(healAmount);
 
         // Play pickup sound effect
-        // PlayerUI.Instance.HealthPickupSFX();
+        PlayerUI.Instance.HealthPickupSFX();
 
         // Return to pool
         HealthPickupPool.Instance.ReturnHealthPickup(gameObject);

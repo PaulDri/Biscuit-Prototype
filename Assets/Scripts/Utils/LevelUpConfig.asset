@@ -17,39 +17,49 @@ MonoBehaviour:
     upgradeDescription: Increase movement speed by 1
     upgradeType: 0
     upgradeValue: 1
-  - upgradeName: Fire Rate +
-    upgradeDescription: Decrease fire cooldown by 0.1s
-    upgradeType: 1
-    upgradeValue: 0.3
+    upgradeSprite: {fileID: 0}
   - upgradeName: Move Speed ++
     upgradeDescription: Increase movement speed by 2
     upgradeType: 0
     upgradeValue: 2
-  - upgradeName: Bullet Speed +
-    upgradeDescription: Increase bullet speed by 1
-    upgradeType: 2
-    upgradeValue: 1.5
-  - upgradeName: Bullet Speed ++
-    upgradeDescription: Increase bullet speed by 2
-    upgradeType: 2
-    upgradeValue: 2.5
+    upgradeSprite: {fileID: 0}
+  - upgradeName: Fire Rate +
+    upgradeDescription: Decrease fire cooldown by 0.1s
+    upgradeType: 1
+    upgradeValue: 0.3
+    upgradeSprite: {fileID: 658273503, guid: 904cc6427fab11d48a43d90c9ae32ade, type: 3}
   - upgradeName: Fire Rate ++
     upgradeDescription: Decrease fire cooldown by 0.2s
     upgradeType: 1
     upgradeValue: 0.6
+    upgradeSprite: {fileID: 9741004, guid: 904cc6427fab11d48a43d90c9ae32ade, type: 3}
+  - upgradeName: Bullet Speed +
+    upgradeDescription: Increase bullet speed by 1
+    upgradeType: 2
+    upgradeValue: 1.5
+    upgradeSprite: {fileID: -1745477266, guid: 904cc6427fab11d48a43d90c9ae32ade, type: 3}
+  - upgradeName: Bullet Speed ++
+    upgradeDescription: Increase bullet speed by 2
+    upgradeType: 2
+    upgradeValue: 2.5
+    upgradeSprite: {fileID: -1659351603, guid: 904cc6427fab11d48a43d90c9ae32ade, type: 3}
   - upgradeName: Invulnerability +
     upgradeDescription: Increase invulnerability by 0.1s
     upgradeType: 3
     upgradeValue: 0.1
+    upgradeSprite: {fileID: 588758344, guid: 904cc6427fab11d48a43d90c9ae32ade, type: 3}
   - upgradeName: Invulnerability ++
     upgradeDescription: Increase invulnerability by 0.2s
     upgradeType: 3
     upgradeValue: 0.2
+    upgradeSprite: {fileID: -1660320912, guid: 904cc6427fab11d48a43d90c9ae32ade, type: 3}
   - upgradeName: Damage ++
     upgradeDescription: Increase damage by 2
     upgradeType: 3
     upgradeValue: 2
+    upgradeSprite: {fileID: 0}
   - upgradeName: Damage +
     upgradeDescription: Increase damage by 1
     upgradeType: 3
     upgradeValue: 1
+    upgradeSprite: {fileID: 0}

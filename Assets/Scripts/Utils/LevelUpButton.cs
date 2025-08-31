@@ -6,15 +6,16 @@ public class LevelUpButton : MonoBehaviour
 {
     public TMP_Text upgradeName;
     public TMP_Text upgradeDescription;
-    // public Image upgradeIcon;
+    public Image upgradeIcon;
     
     private UpgradeOption currentUpgrade;
-    
+
     public void Setup(UpgradeOption upgrade)
     {
         currentUpgrade = upgrade;
         upgradeName.text = upgrade.upgradeName;
         upgradeDescription.text = upgrade.upgradeDescription;
+        if (upgrade.upgradeSprite != null) upgradeIcon.sprite = upgrade.upgradeSprite;
     }
     
     public void OnButtonClick()

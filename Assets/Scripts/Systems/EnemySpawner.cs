@@ -127,6 +127,7 @@ public class EnemySpawner : MonoBehaviour
         lastWaveIndex = currentWaveIndex;
         currentWaveIndex++;
         StartWave();
+        PlayerUI.Instance.UpdateWaveDisplay();
     }
 
     public int GetPrevWaveScoreThreshold () => currentWaveIndex == 0 ? 0 : waves[currentWaveIndex - 1].scoreThreshold; 
