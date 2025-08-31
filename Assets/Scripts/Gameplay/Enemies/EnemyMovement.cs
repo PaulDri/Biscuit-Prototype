@@ -33,14 +33,15 @@ public class EnemyMovement : MonoBehaviour
         if (screenPoint.y < -0.1f)  EnemyPool.Instance.ReturnEnemy(gameObject);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
             ExplosionPool.Instance.PlayExplosion(transform.position, transform.rotation);
             Player.Instance.TakeDamage(10);
+            
             // Enemy is destroyed on collision with player (no health system for player collision)
-            EnemyPool.Instance.ReturnEnemy(gameObject);
+            // EnemyPool.Instance.ReturnEnemy(gameObject);
         }
     }
 }
