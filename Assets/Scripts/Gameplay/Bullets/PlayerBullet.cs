@@ -43,14 +43,18 @@ public class PlayerBullet : MonoBehaviour
             {
                 // Fallback: if enemy doesn't have health component, destroy it immediately
                 EnemyPool.Instance.ReturnEnemy(collision.gameObject);
-                
-                int scoreIncrement = 1;
+
+                // Get score from enemy and apply wave multiplier
+                EnemyMovement enemyMovement = collision.gameObject.GetComponent<EnemyMovement>();
+                int baseScore = enemyMovement != null ? enemyMovement.GetEnemyScore() : 10;
+
+                int scoreIncrement = baseScore;
                 if (EnemySpawner.Instance != null)
                 {
                     float multiplier = EnemySpawner.Instance.GetCurrentWaveDifficultyMultiplier();
                     int waveIndex = EnemySpawner.Instance.GetCurrentWaveIndex();
                     float exponentialFactor = Mathf.Pow(1.05f, waveIndex);
-                    scoreIncrement = Mathf.RoundToInt(multiplier * exponentialFactor);
+                    scoreIncrement = Mathf.RoundToInt(baseScore * multiplier * exponentialFactor);
                 }
 
                 Player.Instance.CheckScore += scoreIncrement;

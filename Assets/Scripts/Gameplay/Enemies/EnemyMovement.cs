@@ -4,6 +4,9 @@ public class EnemyMovement : MonoBehaviour
 {
     private Rigidbody2D enemyRb;
     [SerializeField] private float enemyMoveSpeed = 1.0f;
+    [SerializeField] private int enemyScore = 10; // Base score for killing this enemy
+
+    public int GetEnemyScore() => enemyScore;
 
     void Start()
     {

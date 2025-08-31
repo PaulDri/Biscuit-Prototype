@@ -9,15 +9,16 @@ public class PlayerUI : MonoBehaviour
     public static PlayerUI Instance;
 
     [Header("UI Elements")]
-    [SerializeField] private TMP_Text moveSpeedText;
-    [SerializeField] private TMP_Text fireSpeedText;
     [SerializeField] private TMP_Text scoreText;
     [SerializeField] private TMP_Text waveText;
+    [SerializeField] private TMP_Text damageText;
+    [SerializeField] private TMP_Text fireSpeedText;
     [SerializeField] private TMP_Text bulletSpeedText;
-    [SerializeField] private Image fireCooldownBar;
+    [SerializeField] private TMP_Text moveSpeedText;
+    // [SerializeField] private Image fireCooldownBar;
     [SerializeField] private TMP_Text timeText;
     [SerializeField] private Slider healthBar;
-    [SerializeField] private Slider waveProgressSlider;
+    // [SerializeField] private Slider waveProgressSlider;
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private GameObject levelUpPanel;
     [SerializeField] private GameObject gameOverPanel;
@@ -38,8 +39,8 @@ public class PlayerUI : MonoBehaviour
 
     RectTransform levelUpRect;
 
-    private int lastWaveIndex = -1;
-    private float scoreAtWaveStart = 0f;
+    // private int lastWaveIndex = -1;
+    // private float scoreAtWaveStart = 0f;
 
     void Awake()
     {
@@ -69,43 +70,24 @@ public class PlayerUI : MonoBehaviour
         // Disable shooting
         Player.Instance.DisableShooting();
 
-        //Time.timeScale = 0f;
+        UpdateHealthBar();
     }
 
+    //TODO: Might refactor later so the functions would not be called every update (called only when necessary) 
     private void Update()
     {
-        UpdateMoveSpeedDisplay();
-        UpdateFireRateDisplay();
         UpdateScoreDisplay();
-        UpdateFireCooldownBar();
-        UpdateBulletDisplay();
         UpdateWaveDisplay();
-        UpdateWaveBar();
-        UpdateHealthBar();
+        // UpdateWaveBar();
+        UpdateDamageDisplay();
+        UpdateFireRateDisplay();
+        UpdateMoveSpeedDisplay();
+        // UpdateFireCooldownBar();
+        UpdateBulletDisplay();
+        // UpdateHealthBar();
         UpdateTimeText();
 
-        // TODO: Gamitin yung bagong Input system ng Unity
-        // if (Input.GetKeyDown(KeyCode.Escape)) TogglePause();
-    }
-
-    private void UpdateMoveSpeedDisplay()
-    {
-        if (moveSpeedText != null) moveSpeedText.text = $"Move Speed: {Player.Instance.GetMoveSpeed():F1}";
-    }
-
-    private void UpdateFireRateDisplay()
-    {
-        if (fireSpeedText != null) fireSpeedText.text = $"Fire Rate: {Player.Instance.GetTimeBetweenFiring():F2}s";
-    }
-
-    private void UpdateScoreDisplay()
-    {
-        if (scoreText != null) scoreText.text = $"{Player.Instance.CheckScore}";
-    }
-
-    private void UpdateBulletDisplay()
-    {
-        if (bulletSpeedText != null) bulletSpeedText.text = $"Bullet Speed: {Player.Instance.GetBulletSpeed()}";
+        if (Input.GetKeyDown(KeyCode.Escape)) TogglePause();
     }
 
     private void UpdateWaveDisplay()
@@ -113,40 +95,69 @@ public class PlayerUI : MonoBehaviour
         if (waveText != null) waveText.text = $"Wave: {EnemySpawner.Instance.GetCurrentWaveIndex() + 1}";
     }
 
-
-    private void UpdateWaveBar()
+    private void UpdateScoreDisplay()
     {
-        if (waveProgressSlider != null)
-        {
-            int currentWaveIndex = EnemySpawner.Instance.GetCurrentWaveIndex();
-
-            if (currentWaveIndex != lastWaveIndex)
-            {
-                lastWaveIndex = currentWaveIndex;
-                scoreAtWaveStart = Player.Instance.CheckScore;
-            }
-
-            float currentScore = Player.Instance.CheckScore;
-            float currentThreshold = EnemySpawner.Instance.GetCurrentWaveScoreThreshold();
-
-            float progress = (currentScore - scoreAtWaveStart) / (currentThreshold - scoreAtWaveStart);
-            waveProgressSlider.value = Mathf.Clamp01(progress);
-        }
+        if (scoreText != null) scoreText.text = $"{Player.Instance.CheckScore}";
     }
 
-    private void UpdateFireCooldownBar()
+    private void UpdateDamageDisplay()
     {
-        if (fireCooldownBar != null)
-        {
-            float cooldownProgress = Player.Instance.GetFireCooldownProgress();
-            fireCooldownBar.fillAmount = cooldownProgress;
-            fireCooldownBar.color = Color.Lerp(Color.red, Color.green, cooldownProgress);
-        }
+        if (damageText != null) damageText.text = $"Damage: {Player.Instance.GetBulletDamage()}";
     }
 
-    private void UpdateHealthBar()
+    private void UpdateFireRateDisplay()
     {
-        if (healthBar != null) healthBar.value = Player.Instance.health;
+        if (fireSpeedText != null) fireSpeedText.text = $"Fire Rate: {Player.Instance.GetTimeBetweenFiring():F2}s";
+    }
+
+    private void UpdateBulletDisplay()
+    {
+        if (bulletSpeedText != null) bulletSpeedText.text = $"Bullet Speed: {Player.Instance.GetBulletSpeed()}";
+    }
+
+    private void UpdateMoveSpeedDisplay()
+    {
+        if (moveSpeedText != null) moveSpeedText.text = $"Move Speed: {Player.Instance.GetMoveSpeed():F1}";
+    }
+
+
+    // private void UpdateWaveBar()
+    // {
+    //     if (waveProgressSlider != null)
+    //     {
+    //         int currentWaveIndex = EnemySpawner.Instance.GetCurrentWaveIndex();
+
+    //         if (currentWaveIndex != lastWaveIndex)
+    //         {
+    //             lastWaveIndex = currentWaveIndex;
+    //             scoreAtWaveStart = Player.Instance.CheckScore;
+    //         }
+
+    //         float currentScore = Player.Instance.CheckScore;
+    //         float currentThreshold = EnemySpawner.Instance.GetCurrentWaveScoreThreshold();
+
+    //         float progress = (currentScore - scoreAtWaveStart) / (currentThreshold - scoreAtWaveStart);
+    //         waveProgressSlider.value = Mathf.Clamp01(progress);
+    //     }
+    // }
+
+    // private void UpdateFireCooldownBar()
+    // {
+    //     if (fireCooldownBar != null)
+    //     {
+    //         float cooldownProgress = Player.Instance.GetFireCooldownProgress();
+    //         fireCooldownBar.fillAmount = cooldownProgress;
+    //         fireCooldownBar.color = Color.Lerp(Color.red, Color.green, cooldownProgress);
+    //     }
+    // }
+
+    public void UpdateHealthBar()
+    {
+        if (healthBar != null)
+        {
+            healthBar.DOValue(Player.Instance.health, 0.3f)
+                .SetEase(Ease.OutExpo);
+        }
     }
 
     public void UpdateTimeText()

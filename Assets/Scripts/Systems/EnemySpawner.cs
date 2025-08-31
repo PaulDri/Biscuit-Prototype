@@ -19,7 +19,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField, Range(0, 10), Tooltip("Linear growth added to score threshold per wave")] private int scoreThresholdLinearGrowth = 4;
     [SerializeField, Range(0.5f, 1.0f), Tooltip("Multiplier for spawn interval (lower = faster spawning)")] private float spawnIntervalMultiplier = 0.8f;
     [SerializeField, Range(0.5f, 1.0f), Tooltip("Multiplier for spawn cooldown (lower = faster initial spawn)")] private float spawnCooldownMultiplier = 0.8f;
-    [SerializeField, Range(1.0f, 2.0f), Tooltip("Difficulty multiplier applied to enemies each wave")] private float difficultyMultiplier = 1.2f;
+    [SerializeField, Range(1.0f, 2.0f), Tooltip("Difficulty multiplier applied to enemies each wave")] private float difficultyMultiplier = 1.05f;
     [SerializeField, Range(0.0f, 0.1f), Tooltip("Percentage increase in shooting enemy spawn rate per wave")] private float shootingEnemySpawnRateIncrease = 0.05f;
     [SerializeField, Range(0.0f, 1.0f), Tooltip("Maximum shooting enemy spawn rate (as percentage)")] private float maxShootingEnemySpawnRate = 0.5f;
     [SerializeField, Range(0.1f, 1.0f), Tooltip("Minimum time between enemy spawns")] private float minSpawnInterval = 0.25f;
