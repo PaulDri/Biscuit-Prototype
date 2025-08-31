@@ -5,6 +5,7 @@ public class EnemyBullet : MonoBehaviour
 {
     private Rigidbody2D bulletRb;
     [SerializeField] private float bulletSpeed = 10f;
+    public Vector2 direction = Vector2.down;
     //[SerializeField] private GameObject explosionPrefab;
 
     void Start()
@@ -18,9 +19,9 @@ public class EnemyBullet : MonoBehaviour
         CheckScreenBounds();
     }
 
-    private void BulletSpawn() 
+    private void BulletSpawn()
     {
-        bulletRb.velocity = Vector2.down * bulletSpeed;
+        bulletRb.velocity = direction * bulletSpeed;
     }
 
 

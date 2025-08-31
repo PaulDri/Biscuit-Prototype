@@ -24,14 +24,14 @@ MonoBehaviour:
     upgradeValue: 2
     upgradeSprite: {fileID: 0}
   - upgradeName: Fire Rate +
-    upgradeDescription: Decrease fire cooldown by 0.1s
-    upgradeType: 1
-    upgradeValue: 0.3
-    upgradeSprite: {fileID: 658273503, guid: 904cc6427fab11d48a43d90c9ae32ade, type: 3}
-  - upgradeName: Fire Rate ++
     upgradeDescription: Decrease fire cooldown by 0.2s
     upgradeType: 1
-    upgradeValue: 0.6
+    upgradeValue: 0.2
+    upgradeSprite: {fileID: 658273503, guid: 904cc6427fab11d48a43d90c9ae32ade, type: 3}
+  - upgradeName: Fire Rate ++
+    upgradeDescription: Decrease fire cooldown by 0.4s
+    upgradeType: 1
+    upgradeValue: 0.4
     upgradeSprite: {fileID: 9741004, guid: 904cc6427fab11d48a43d90c9ae32ade, type: 3}
   - upgradeName: Bullet Speed +
     upgradeDescription: Increase bullet speed by 1
