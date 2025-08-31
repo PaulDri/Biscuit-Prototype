@@ -1,3 +1,5 @@
+using UnityEngine;
+
 [System.Serializable]
 public class UpgradeOption
 {
@@ -5,6 +7,7 @@ public class UpgradeOption
     public string upgradeDescription;
     public UpgradeType upgradeType;
     public float upgradeValue;
+    public Sprite upgradeSprite;
 
     public enum UpgradeType
     {

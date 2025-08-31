@@ -4483,58 +4483,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5017380222321680529, guid: 8d6679c95375eea4d9941baf2ce36236, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5017380222321680529, guid: 8d6679c95375eea4d9941baf2ce36236, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5017380222321680529, guid: 8d6679c95375eea4d9941baf2ce36236, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5017380222321680529, guid: 8d6679c95375eea4d9941baf2ce36236, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1262216664}
-    - target: {fileID: 5017380222321680529, guid: 8d6679c95375eea4d9941baf2ce36236, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5017380222321680529, guid: 8d6679c95375eea4d9941baf2ce36236, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5017380222321680529, guid: 8d6679c95375eea4d9941baf2ce36236, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnButtonClick
-      objectReference: {fileID: 0}
-    - target: {fileID: 5017380222321680529, guid: 8d6679c95375eea4d9941baf2ce36236, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: LevelUpButton, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 5017380222321680529, guid: 8d6679c95375eea4d9941baf2ce36236, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 5362298412002860362, guid: 8d6679c95375eea4d9941baf2ce36236, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 148.24
-      objectReference: {fileID: 0}
-    - target: {fileID: 5362298412002860362, guid: 8d6679c95375eea4d9941baf2ce36236, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 72.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 6274039243754847006, guid: 8d6679c95375eea4d9941baf2ce36236, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 208.96
-      objectReference: {fileID: 0}
-    - target: {fileID: 6274039243754847006, guid: 8d6679c95375eea4d9941baf2ce36236, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 48.01
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6553,50 +6501,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5017380222321680529, guid: 8d6679c95375eea4d9941baf2ce36236, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5017380222321680529, guid: 8d6679c95375eea4d9941baf2ce36236, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5017380222321680529, guid: 8d6679c95375eea4d9941baf2ce36236, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1561941281}
-    - target: {fileID: 5017380222321680529, guid: 8d6679c95375eea4d9941baf2ce36236, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5017380222321680529, guid: 8d6679c95375eea4d9941baf2ce36236, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnButtonClick
-      objectReference: {fileID: 0}
-    - target: {fileID: 5017380222321680529, guid: 8d6679c95375eea4d9941baf2ce36236, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: LevelUpButton, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 5017380222321680529, guid: 8d6679c95375eea4d9941baf2ce36236, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 5362298412002860362, guid: 8d6679c95375eea4d9941baf2ce36236, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 148.24
-      objectReference: {fileID: 0}
-    - target: {fileID: 5362298412002860362, guid: 8d6679c95375eea4d9941baf2ce36236, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 72.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 6274039243754847006, guid: 8d6679c95375eea4d9941baf2ce36236, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 208.96
-      objectReference: {fileID: 0}
-    - target: {fileID: 6274039243754847006, guid: 8d6679c95375eea4d9941baf2ce36236, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 48.01
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7306,50 +7210,6 @@ PrefabInstance:
     - target: {fileID: 4778012338267396550, guid: 8d6679c95375eea4d9941baf2ce36236, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5017380222321680529, guid: 8d6679c95375eea4d9941baf2ce36236, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5017380222321680529, guid: 8d6679c95375eea4d9941baf2ce36236, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5017380222321680529, guid: 8d6679c95375eea4d9941baf2ce36236, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 123064673}
-    - target: {fileID: 5017380222321680529, guid: 8d6679c95375eea4d9941baf2ce36236, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5017380222321680529, guid: 8d6679c95375eea4d9941baf2ce36236, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnButtonClick
-      objectReference: {fileID: 0}
-    - target: {fileID: 5017380222321680529, guid: 8d6679c95375eea4d9941baf2ce36236, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: LevelUpButton, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 5017380222321680529, guid: 8d6679c95375eea4d9941baf2ce36236, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 5362298412002860362, guid: 8d6679c95375eea4d9941baf2ce36236, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 148.24
-      objectReference: {fileID: 0}
-    - target: {fileID: 5362298412002860362, guid: 8d6679c95375eea4d9941baf2ce36236, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 72.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 6274039243754847006, guid: 8d6679c95375eea4d9941baf2ce36236, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 208.96
-      objectReference: {fileID: 0}
-    - target: {fileID: 6274039243754847006, guid: 8d6679c95375eea4d9941baf2ce36236, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 48.01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
