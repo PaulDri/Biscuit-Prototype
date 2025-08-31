@@ -5,13 +5,16 @@ public class EnemySpawner : MonoBehaviour
 {
     public static EnemySpawner Instance;
     private float spawnRangeX = 9f;
-    private float spawnPositionY = 16f;
+    private float spawnPositionY = 20f;
 
     [SerializeField] private List<Wave> waves;
     private int currentWaveIndex = 0;
     public int lastWaveIndex = -1;
     private float spawnTime;
     private bool isWaveActive = false;
+    private bool isBossWave = false;
+    [SerializeField] private GameObject bossPrefab;
+    private GameObject currentBoss;
 
     // Wave generation parameters
     [Header("Wave Generation Settings")]
@@ -44,6 +47,8 @@ public class EnemySpawner : MonoBehaviour
 
     void Update()
     {
+        if (isBossWave) return; // Don't spawn enemies during boss wave
+
         if (!isWaveActive) return;
 
         if (spawnTime > 0) spawnTime -= Time.deltaTime;
@@ -53,13 +58,15 @@ public class EnemySpawner : MonoBehaviour
             SpawnEnemy();
             spawnTime = waves[currentWaveIndex].spawnInterval;
         }
-        
+
         CheckWaveThreshold();
     }
-    
-    
+
+
     private void CheckWaveThreshold()
     {
+        if (isBossWave) return; // Don't check score during boss wave
+
         if ( Player.Instance.CheckScore >= GetCurrentWaveScoreThreshold())
         {
             LevelUpSystem.Instance.ShowLevelUpOptions();
@@ -76,12 +83,23 @@ public class EnemySpawner : MonoBehaviour
             GenerateNewWave();
         }
 
-        isWaveActive = true;
-        spawnTime = waves[currentWaveIndex].spawnCooldown;
+        // Check if this is a boss wave (every 15 waves: 15, 30, 45, etc.)
+        isBossWave = (currentWaveIndex + 1) % 10 == 0;
 
-        Debug.Log($"Starting Wave {currentWaveIndex + 1} - Score Threshold: {waves[currentWaveIndex].scoreThreshold}, " +
-                 $"Spawn Interval: {waves[currentWaveIndex].spawnInterval:F2}, " +
-                 $"Difficulty: {waves[currentWaveIndex].difficultyMultiplier:F2}");
+        if (isBossWave)
+        {
+            SpawnBoss();
+            isWaveActive = false; // Disable regular enemy spawning
+            Debug.Log($"Starting Boss Wave {currentWaveIndex + 1}");
+        }
+        else
+        {
+            isWaveActive = true;
+            spawnTime = waves[currentWaveIndex].spawnCooldown;
+            Debug.Log($"Starting Wave {currentWaveIndex + 1} - Score Threshold: {waves[currentWaveIndex].scoreThreshold}, " +
+                     $"Spawn Interval: {waves[currentWaveIndex].spawnInterval:F2}, " +
+                     $"Difficulty: {waves[currentWaveIndex].difficultyMultiplier:F2}");
+        }
     }
 
         private void GenerateNewWave()
@@ -120,6 +138,29 @@ public class EnemySpawner : MonoBehaviour
 
         if (isShootingEnemy) EnemyPool.Instance.GetShootingEnemy(spawnPosition);
         else EnemyPool.Instance.GetEnemy(spawnPosition);
+    }
+
+    private void SpawnBoss()
+    {
+        if (bossPrefab != null)
+        {
+            AudioManager.Instance.PlayMusic(PlayerUI.Instance.bossBGM);
+            currentBoss = Instantiate(bossPrefab, new Vector2(0, spawnPositionY), Quaternion.identity);
+        }
+        else
+        {
+            Debug.LogError("Boss prefab not assigned in EnemySpawner!");
+        }
+    }
+
+    public void OnBossDefeated()
+    {
+        if (isBossWave)
+        {
+            AudioManager.Instance.PlayMusic(PlayerUI.Instance.bossDie);
+            isBossWave = false;
+            AdvanceToNextWave();
+        }
     }
 
     public void AdvanceToNextWave()

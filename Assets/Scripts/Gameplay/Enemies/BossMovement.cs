@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BossMovement : MonoBehaviour
 {
@@ -22,15 +23,30 @@ public class BossMovement : MonoBehaviour
     [Header("Random State Settings")]
     [SerializeField] private State[] availableStates = { State.Shooting, State.Strafing, State.Stopped };
     [SerializeField] private float[] stateWeights = { 30f, 40f, 30f }; // Shooting, Strafing, Stopped
-    
+
+    [Header("Boss Health")]
+    [SerializeField] private int maxHealth = 100;
+    private int currentHealth;
+
+    [Header("UI Reference")]
+    [SerializeField] private Image healthBar;
+
     private Vector3 startPosition;
     private float stateTimer;
     private bool hasReachedPosition = false;
+    private bool isInvulnerable = false;
     private float startStrafeTime;
-    
+
     void Start()
     {
         startPosition = transform.position;
+        currentHealth = maxHealth;
+        isInvulnerable = true; // Boss is invulnerable from the start
+        if (healthBar != null)
+        {
+            healthBar.fillAmount = 1f;
+            healthBar.gameObject.SetActive(false); // Hide health bar from the start
+        }
     }
     
     void Update()
@@ -60,6 +76,11 @@ public class BossMovement : MonoBehaviour
         if (transform.position.y <= stopY)
         {
             hasReachedPosition = true;
+            isInvulnerable = false;
+            if (healthBar != null)
+            {
+                healthBar.gameObject.SetActive(true);
+            }
             startPosition = transform.position;
             SwitchToRandomState();
         }
@@ -188,7 +209,38 @@ public class BossMovement : MonoBehaviour
     }
     
     #endregion
-    
+
+    #region Health System
+
+    public int CurrentHealth => currentHealth;
+    public int MaxHealth => maxHealth;
+
+    public void TakeDamage(int damage)
+    {
+        if (isInvulnerable) return;
+
+        currentHealth -= damage;
+        if (healthBar != null)
+        {
+            healthBar.fillAmount = (float)currentHealth / maxHealth;
+        }
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    private void Die()
+    {
+        // Handle boss death - can be expanded with explosion effects, score updates, etc.
+        Debug.Log("Boss defeated!");
+        EnemySpawner.Instance.OnBossDefeated();
+        PlayerUI.Instance.DamagePlayerSFX();
+        Destroy(gameObject);
+    }
+
+    #endregion
+
     #region Advanced Random Patterns (Optional)
     
     // Method 3: Pattern-based random states

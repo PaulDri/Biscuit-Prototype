@@ -37,6 +37,8 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private AudioClip levelUpCloseSFX;
     [SerializeField] private AudioClip gameOverSFX;
     [SerializeField] private AudioClip healthPickupSFX;
+    [SerializeField] public AudioClip bossBGM;
+    [SerializeField] public AudioClip bossDie;
 
     RectTransform levelUpRect;
 

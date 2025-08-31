@@ -32,7 +32,7 @@ public class PlayerBullet : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             BulletPool.Instance.ReturnBullet(gameObject);
-            
+
             // Deal damage to enemy instead of immediately destroying it
             EnemyHealth enemyHealth = collision.gameObject.GetComponent<EnemyHealth>();
             if (enemyHealth != null)
@@ -60,11 +60,20 @@ public class PlayerBullet : MonoBehaviour
                 Player.Instance.CheckScore += scoreIncrement;
             }
         }
+        else if (collision.gameObject.GetComponent<BossMovement>() != null)
+        {
+            BulletPool.Instance.ReturnBullet(gameObject);
+            ExplosionPool.Instance.PlayExplosion(transform.position, transform.rotation);
+
+            // Deal damage to boss
+            BossMovement boss = collision.gameObject.GetComponent<BossMovement>();
+            boss.TakeDamage(Player.Instance.GetBulletDamage());
+        }
         else if (collision.gameObject.layer == LayerMask.NameToLayer("EnemyBullet"))
         {
             ExplosionPool.Instance.PlayExplosion(transform.position, transform.rotation);
             BulletPool.Instance.ReturnBullet(gameObject);
             BulletPool.Instance.ReturnBullet(collision.gameObject);
-        } 
+        }
     }
 }
