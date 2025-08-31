@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 9018778262320510091}
   - component: {fileID: 141985280246962573}
+  - component: {fileID: 1611861376429470014}
+  - component: {fileID: 8321295735718471206}
   m_Layer: 0
   m_Name: Enemy_Boss
   m_TagString: Untagged
@@ -72,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 852132f78933f5e4f93cebd597067633, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -84,3 +86,86 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1611861376429470014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3499037360307223156}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bac098d007dc0ff46b3e7412a16c08a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bossMovement: 0.3
+--- !u!60 &8321295735718471206
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3499037360307223156}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2, y: 2}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.81203955, y: 0.15230042}
+      - {x: 0.8023285, y: 0.18120982}
+      - {x: 0.79014015, y: 0.19516028}
+      - {x: 0.43534485, y: 0.21247981}
+      - {x: 0.2548879, y: 0.43645695}
+      - {x: -0.09951754, y: 0.4682285}
+      - {x: -0.42423722, y: 0.20059979}
+      - {x: -0.49830908, y: 0.17641366}
+      - {x: -0.7436102, y: 0.16534616}
+      - {x: -0.7798913, y: 0.165613}
+      - {x: -0.78272367, y: 0.14489102}
+      - {x: -0.7827236, y: 0.13583848}
+      - {x: -0.7818755, y: 0.12713088}
+      - {x: -0.78168833, y: 0.11348597}
+      - {x: -0.78120875, y: 0.09444547}
+      - {x: -0.7520799, y: 0.07737733}
+      - {x: -0.7148455, y: 0.03765054}
+      - {x: -0.6867566, y: 0.012293503}
+      - {x: -0.5727265, y: -0.103811905}
+      - {x: -0.3437575, y: -0.2830275}
+      - {x: 0.030506067, y: -0.34371436}
+      - {x: 0.37664387, y: -0.28002343}
+      - {x: 0.6157967, y: -0.08167396}
+      - {x: 0.8125, y: 0.097458184}
+      - {x: 0.8144347, y: 0.12510955}
+  m_UseDelaunayMesh: 0
