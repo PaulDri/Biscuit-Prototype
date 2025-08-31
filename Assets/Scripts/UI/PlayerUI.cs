@@ -36,6 +36,7 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private AudioClip levelUpSFX;
     [SerializeField] private AudioClip levelUpCloseSFX;
     [SerializeField] private AudioClip gameOverSFX;
+    [SerializeField] private AudioClip healthPickupSFX;
 
     RectTransform levelUpRect;
 
@@ -77,7 +78,7 @@ public class PlayerUI : MonoBehaviour
     private void Update()
     {
         UpdateScoreDisplay();
-        UpdateWaveDisplay();
+        // UpdateWaveDisplay();
         // UpdateWaveBar();
         UpdateDamageDisplay();
         UpdateFireRateDisplay();
@@ -90,9 +91,15 @@ public class PlayerUI : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape)) TogglePause();
     }
 
-    private void UpdateWaveDisplay()
+    public void UpdateWaveDisplay()
     {
-        if (waveText != null) waveText.text = $"Wave: {EnemySpawner.Instance.GetCurrentWaveIndex() + 1}";
+        if (waveText != null)
+        {
+            waveText.text = $"Wave: {EnemySpawner.Instance.GetCurrentWaveIndex() + 1}";
+            waveText.DOFade(0.1f, 0.1f)
+                .SetLoops(8, LoopType.Yoyo)
+                .OnComplete(() => waveText.DOFade(1f, 0.1f));
+        }
     }
 
     private void UpdateScoreDisplay()
@@ -278,6 +285,7 @@ public class PlayerUI : MonoBehaviour
     public void PlayerShootSFX() => AudioManager.Instance.PlaySFX(shootSFX);
     public void EnemyDieSFX() => AudioManager.Instance.PlaySFX(enemyDieSFX);
     public void DamagePlayerSFX() => AudioManager.Instance.PlaySFX(damagePlayerSFX);
+    public void HealthPickupSFX() => AudioManager.Instance.PlaySFX(healthPickupSFX);
 
     public string FormatTime(float time)
     {
