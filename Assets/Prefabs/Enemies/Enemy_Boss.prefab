@@ -33,7 +33,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2813389999878445250}
-  - {fileID: 4134675163400808673}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -106,20 +105,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
-  bossMovement: 0.3
+  bossMovement: 1.5
   stopY: 3
   strafeSpeed: 2
   strafeAmplitude: 3
+  leftBoundary: -10
+  rightBoundary: 11
   minStateTime: 1
   maxStateTime: 3
   shootingTime: 0.5
   availableStates: 020000000300000001000000
   stateWeights:
-  - 30
+  - 50
   - 40
   - 30
   maxHealth: 100
   healthBar: {fileID: 8796220614814379528}
+  healthCanvasGroup: {fileID: 8689404192958692224}
 --- !u!60 &8321295735718471206
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -240,14 +242,14 @@ RectTransform:
   m_GameObject: {fileID: 4598033056140535888}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2142857, y: 0.2142857, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 0.6666667}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 9018778262320510091}
+  m_Father: {fileID: 2813389999878445250}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0.298}
+  m_AnchoredPosition: {x: 0, y: 0.37352}
   m_SizeDelta: {x: 5, y: 0.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6655299420517166204
@@ -299,6 +301,7 @@ GameObject:
   - component: {fileID: 2813389999878445250}
   - component: {fileID: 4624769005678040062}
   - component: {fileID: 2990956454959492342}
+  - component: {fileID: 8689404192958692224}
   m_Layer: 0
   m_Name: Border
   m_TagString: Untagged
@@ -317,7 +320,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.2142857, y: 0.2142857, z: 1.5}
   m_ConstrainProportionsScale: 1
-  m_Children: []
+  m_Children:
+  - {fileID: 4134675163400808673}
   m_Father: {fileID: 9018778262320510091}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
@@ -363,3 +367,15 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 146.53
+--- !u!225 &8689404192958692224
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4620875716911682934}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0

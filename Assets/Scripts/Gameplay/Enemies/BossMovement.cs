@@ -2,18 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class BossMovement : MonoBehaviour
 {
-    [Header("Boss States")]
+    [Header("Boss Properties")]
     [SerializeField] private State currentState = State.Moving;
-    public enum State { Moving, Stopped, Shooting, Strafing }
+    [SerializeField] private int maxHealth = 100;
+    [SerializeField] private bool isInvulnerable = false;
+    private Vector3 startPosition;
+    private float stateTimer;
+    private bool hasReachedPosition = false;
+    private float startStrafeTime;
+    private int currentHealth;
     
     [Header("Movement Settings")]
     [SerializeField] private float bossMovement = 2f;
     [SerializeField] private float stopY = 3f;
     [SerializeField] private float strafeSpeed = 2f;
     [SerializeField] private float strafeAmplitude = 3f;
+    [SerializeField] private float leftBoundary = -10f;
+    [SerializeField] private float rightBoundary = 11f;
     
     [Header("State Timing")]
     [SerializeField] private float minStateTime = 1f;
@@ -23,30 +32,20 @@ public class BossMovement : MonoBehaviour
     [Header("Random State Settings")]
     [SerializeField] private State[] availableStates = { State.Shooting, State.Strafing, State.Stopped };
     [SerializeField] private float[] stateWeights = { 30f, 40f, 30f }; // Shooting, Strafing, Stopped
-
-    [Header("Boss Health")]
-    [SerializeField] private int maxHealth = 100;
-    private int currentHealth;
+    public enum State { Moving, Stopped, Shooting, Strafing }
 
     [Header("UI Reference")]
     [SerializeField] private Image healthBar;
-
-    private Vector3 startPosition;
-    private float stateTimer;
-    private bool hasReachedPosition = false;
-    private bool isInvulnerable = false;
-    private float startStrafeTime;
+    [SerializeField] private CanvasGroup healthCanvasGroup;
 
     void Start()
     {
         startPosition = transform.position;
         currentHealth = maxHealth;
         isInvulnerable = true; // Boss is invulnerable from the start
-        if (healthBar != null)
-        {
-            healthBar.fillAmount = 1f;
-            healthBar.gameObject.SetActive(false); // Hide health bar from the start
-        }
+
+        if (healthBar != null) healthBar.fillAmount = 1f;
+        if (healthCanvasGroup != null) healthCanvasGroup.alpha = 0f;
     }
     
     void Update()
@@ -77,10 +76,9 @@ public class BossMovement : MonoBehaviour
         {
             hasReachedPosition = true;
             isInvulnerable = false;
-            if (healthBar != null)
-            {
-                healthBar.gameObject.SetActive(true);
-            }
+
+            healthCanvasGroup.DOFade(1f, 1f).SetEase(Ease.OutQuint);
+
             startPosition = transform.position;
             SwitchToRandomState();
         }
@@ -109,6 +107,7 @@ public class BossMovement : MonoBehaviour
     {
         // Strafe movement
         float x = startPosition.x + Mathf.Sin((Time.time - startStrafeTime) * strafeSpeed) * strafeAmplitude;
+        x = Mathf.Clamp(x, leftBoundary, rightBoundary);
         transform.position = new Vector3(x, transform.position.y, transform.position.z);
 
         stateTimer -= Time.deltaTime;
@@ -146,7 +145,8 @@ public class BossMovement : MonoBehaviour
         if (currentState == State.Strafing)
         {
             startStrafeTime = Time.time;
-            startPosition = transform.position; // Update start position for smooth strafing
+            startPosition = transform.position;
+            startPosition.x = Mathf.Clamp(startPosition.x, leftBoundary, rightBoundary);
         }
 
         Debug.Log($"Boss switched to: {currentState}");
@@ -220,14 +220,8 @@ public class BossMovement : MonoBehaviour
         if (isInvulnerable) return;
 
         currentHealth -= damage;
-        if (healthBar != null)
-        {
-            healthBar.fillAmount = (float)currentHealth / maxHealth;
-        }
-        if (currentHealth <= 0)
-        {
-            Die();
-        }
+        if (healthBar != null) healthBar.fillAmount = (float)currentHealth / maxHealth;
+        if (currentHealth <= 0) Die();
     }
 
     private void Die()
