@@ -29,7 +29,7 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private CanvasGroup gameHUD;
 
     [Header("Audio")]
-    [SerializeField] private AudioClip gameBG;
+    [SerializeField] public AudioClip gameBG;
     [SerializeField] private AudioClip shootSFX;
     [SerializeField] private AudioClip enemyDieSFX;
     [SerializeField] private AudioClip damagePlayerSFX;

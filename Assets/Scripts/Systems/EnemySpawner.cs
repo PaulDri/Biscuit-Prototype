@@ -18,15 +18,13 @@ public class EnemySpawner : MonoBehaviour
 
     // Wave generation parameters
     [Header("Wave Generation Settings")]
-    [SerializeField, Range(1.0f, 2.0f), Tooltip("Exponential growth factor for score threshold calculation")] private float scoreThresholdBaseMultiplier = 1.1f;
-    [SerializeField, Range(0, 10), Tooltip("Linear growth added to score threshold per wave")] private int scoreThresholdLinearGrowth = 4;
     [SerializeField, Range(0.5f, 1.0f), Tooltip("Multiplier for spawn interval (lower = faster spawning)")] private float spawnIntervalMultiplier = 0.8f;
     [SerializeField, Range(0.5f, 1.0f), Tooltip("Multiplier for spawn cooldown (lower = faster initial spawn)")] private float spawnCooldownMultiplier = 0.8f;
     [SerializeField, Range(1.0f, 2.0f), Tooltip("Difficulty multiplier applied to enemies each wave")] private float difficultyMultiplier = 1.05f;
     [SerializeField, Range(0.0f, 0.1f), Tooltip("Percentage increase in shooting enemy spawn rate per wave")] private float shootingEnemySpawnRateIncrease = 0.05f;
     [SerializeField, Range(0.0f, 1.0f), Tooltip("Maximum shooting enemy spawn rate (as percentage)")] private float maxShootingEnemySpawnRate = 0.5f;
-    [SerializeField, Range(0.1f, 1.0f), Tooltip("Minimum time between enemy spawns")] private float minSpawnInterval = 0.25f;
-    [SerializeField, Range(0.1f, 2.0f), Tooltip("Minimum initial spawn delay for new waves")] private float minSpawnCooldown = 0.5f;
+    [SerializeField, Range(0.1f, 1.0f), Tooltip("Minimum time between enemy spawns")] private float minSpawnInterval = 0.75f;
+    [SerializeField, Range(0.1f, 2.0f), Tooltip("Minimum initial spawn delay for new waves")] private float minSpawnCooldown = 0.75f;
 
     void Awake()
     {
@@ -45,15 +43,28 @@ public class EnemySpawner : MonoBehaviour
         StartWave();
     }
 
+    private float waveTimer = 60f;
+    private bool waveTimerExpired = false;
+
     void Update()
     {
         if (isBossWave) return; // Don't spawn enemies during boss wave
 
         if (!isWaveActive) return;
 
-        if (spawnTime > 0) spawnTime -= Time.deltaTime;
+        if (!waveTimerExpired)
+        {
+            waveTimer -= Time.deltaTime;
+            if (waveTimer <= 0)
+            {
+                waveTimerExpired = true;
+                spawnTime = 0f;
+            }
+        }
 
-        if (spawnTime <= 0)
+        if (spawnTime > 0 && !waveTimerExpired) spawnTime -= Time.deltaTime;
+
+        if (spawnTime <= 0 && !waveTimerExpired)
         {
             SpawnEnemy();
             spawnTime = waves[currentWaveIndex].spawnInterval;
@@ -65,23 +76,26 @@ public class EnemySpawner : MonoBehaviour
 
     private void CheckWaveThreshold()
     {
-        if (isBossWave) return; // Don't check score during boss wave
+        if (isBossWave) return; // Don't check during boss wave
 
-        if ( Player.Instance.CheckScore >= GetCurrentWaveScoreThreshold())
+        if (waveTimerExpired)
         {
-            LevelUpSystem.Instance.ShowLevelUpOptions();
-            AdvanceToNextWave();
+            // Check if all enemies are cleared
+            if (AreAllEnemiesCleared())
+            {
+                LevelUpSystem.Instance.ShowLevelUpOptions();
+                AdvanceToNextWave();
+            }
         }
     }
 
 
     private void StartWave()
     {
-        // If we've reached the end of predefined waves, generate a new wave
-        if (currentWaveIndex >= waves.Count)
-        {
-            GenerateNewWave();
-        }
+        if (currentWaveIndex >= waves.Count) GenerateNewWave();
+
+        waveTimer = 60f;
+        waveTimerExpired = false;
 
         // Check if this is a boss wave (every 15 waves: 15, 30, 45, etc.)
         isBossWave = (currentWaveIndex + 1) % 10 == 0;
@@ -110,9 +124,6 @@ public class EnemySpawner : MonoBehaviour
             // Create a new wave with increased difficulty
             Wave newWave = new Wave
             {
-                // Calculate exponentially increasing score threshold: base + linear growth, scaled by multiplier per wave
-                scoreThreshold = Mathf.RoundToInt((lastWave.scoreThreshold + currentWaveIndex * scoreThresholdLinearGrowth) * Mathf.Pow(scoreThresholdBaseMultiplier, currentWaveIndex)),
-
                 // Faster spawn interval, with minimum limit
                 spawnInterval = Mathf.Max(lastWave.spawnInterval * spawnIntervalMultiplier, minSpawnInterval),
 
@@ -159,7 +170,9 @@ public class EnemySpawner : MonoBehaviour
         {
             AudioManager.Instance.PlayMusic(PlayerUI.Instance.bossDie);
             isBossWave = false;
+            LevelUpSystem.Instance.ShowLevelUpOptions();
             AdvanceToNextWave();
+            AudioManager.Instance.PlayMusic(PlayerUI.Instance.gameBG);
         }
     }
 
@@ -169,6 +182,12 @@ public class EnemySpawner : MonoBehaviour
         currentWaveIndex++;
         StartWave();
         PlayerUI.Instance.UpdateWaveDisplay();
+    }
+
+    private bool AreAllEnemiesCleared()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        return enemies.Length == 0;
     }
 
     public int GetPrevWaveScoreThreshold () => currentWaveIndex == 0 ? 0 : waves[currentWaveIndex - 1].scoreThreshold; 

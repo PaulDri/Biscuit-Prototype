@@ -4,38 +4,39 @@ public class WaveSystemTest : MonoBehaviour
 {
     [Header("Test Configuration")]
     [SerializeField] private bool enableTesting = true;
-    [SerializeField] private float testScoreIncrement = 5f;
-    [SerializeField] private float testInterval = 2f;
     [SerializeField] private bool showWaveInfo = true;
-    
-    private float testTimer;
+    [SerializeField] private KeyCode clearEnemiesKey = KeyCode.C;
+    [SerializeField] private KeyCode skipWaveKey = KeyCode.S;
+
     private int lastWaveIndex = 0;
 
     void Update()
     {
         if (!enableTesting) return;
-        
-        testTimer += Time.deltaTime;
-        if (testTimer >= testInterval)
-        {
-            testTimer = 0;
-            TestScoreIncrease();
-        }
 
-        // Show wave info when it changes
         if (showWaveInfo && EnemySpawner.Instance != null && EnemySpawner.Instance.GetCurrentWaveIndex() != lastWaveIndex)
         {
             lastWaveIndex = EnemySpawner.Instance.GetCurrentWaveIndex();
             Debug.Log($"Wave changed to: {lastWaveIndex + 1}");
         }
+
+        if (Input.GetKeyDown(clearEnemiesKey)) ClearAllEnemies();
+        if (Input.GetKeyDown(skipWaveKey)) SkipWave();
     }
 
-    private void TestScoreIncrease()
+    private void ClearAllEnemies()
     {
-        if (Player.Instance != null)
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemy in enemies) Destroy(enemy);
+        Debug.Log($"Test: Cleared {enemies.Length} enemies");
+    }
+
+    private void SkipWave()
+    {
+        if (EnemySpawner.Instance != null)
         {
-            Player.Instance.CheckScore += testScoreIncrement;
-            Debug.Log($"Test: Increased score to {Player.Instance.CheckScore}");
+            EnemySpawner.Instance.AdvanceToNextWave();
+            Debug.Log("Test: Skipped to next wave");
         }
     }
 }

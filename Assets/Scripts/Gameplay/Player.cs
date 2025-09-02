@@ -112,6 +112,16 @@ public class Player : MonoBehaviour
         playerRb.velocity = new Vector2(moveDirection.x * moveSpeed, 0);
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy")) playerRb.isKinematic = true;
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy")) playerRb.isKinematic = false;
+    }
+
     private Vector2 GetMovementNormalized()
     {
         Vector2 inputVector = playerInputAction.PlayerInput.Move.ReadValue<Vector2>();

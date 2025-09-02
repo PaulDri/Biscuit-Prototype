@@ -105,12 +105,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentState: 0
+  maxHealth: 100
+  isInvulnerable: 0
   bossMovement: 1.5
   stopY: 3
   strafeSpeed: 2
   strafeAmplitude: 3
-  leftBoundary: -10
-  rightBoundary: 11
+  leftBoundary: -8
+  rightBoundary: 8
   minStateTime: 1
   maxStateTime: 3
   shootingTime: 0.5
@@ -119,7 +121,6 @@ MonoBehaviour:
   - 50
   - 40
   - 30
-  maxHealth: 100
   healthBar: {fileID: 8796220614814379528}
   healthCanvasGroup: {fileID: 8689404192958692224}
 --- !u!60 &8321295735718471206
