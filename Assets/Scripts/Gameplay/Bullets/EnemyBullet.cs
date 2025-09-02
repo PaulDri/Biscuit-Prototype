@@ -6,11 +6,15 @@ public class EnemyBullet : MonoBehaviour
     private Rigidbody2D bulletRb;
     [SerializeField] private float bulletSpeed = 10f;
     public Vector2 direction = Vector2.down;
-    //[SerializeField] private GameObject explosionPrefab;
 
     void Start()
     {
         bulletRb = GetComponent<Rigidbody2D>();
+    }
+
+    void OnEnable()
+    {
+        direction = Vector2.down;
     }
 
     void Update()
@@ -32,7 +36,7 @@ public class EnemyBullet : MonoBehaviour
             BulletPool.Instance.ReturnBullet(gameObject);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
@@ -41,17 +45,4 @@ public class EnemyBullet : MonoBehaviour
             Player.Instance.TakeDamage(10);
         }
     }
-
-    //public void PlayExplosion()
-    //{
-
-    //    if (explosionPrefab != null)
-    //    {
-    //        GameObject explosion = Instantiate(explosionPrefab, transform.position, transform.rotation);
-    //        Destroy(explosion, 1f);
-    //    }
-
-    //    PlayerUI.Instance.EnemyDieSFX();
-    //}
-
 }
